@@ -1,0 +1,83 @@
+// Variables
+@import '_variables';
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+:active, :focus {
+    border: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.font-primary {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.font-secondary {
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-shadow{
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+.rounded-corner{
+    border-radius: 20px;
+}
+
+@each $name, $color in $colors {
+    .color-#{$name} {
+      color: $color;
+    }
+
+    .background-#{$name} {
+        background-color: $color;
+    }
+}
+
+.button {
+    padding: 1em;
+    color: white;
+    border:0;
+    border-radius: 100px;
+}
+
+.shadow{
+    box-shadow: 0px 5px 7px 0px #aaa;
+}
+
+.background-image{
+    height: 100vh;
+    //background-image: url("../images/earphones.png");
+    background-size: 104% 120%;
+    background-position: center;
+}
+
+.glassmorphism-card{
+    background: rgba( 255, 255, 255, 0.25 );
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 20px;
+}
+
+.glassmorphism-input{
+    color: white;
+    font-weight: bold;
+    background: none;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 2px solid rgba(255,255,255, 0.3);
+    :-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus, :-webkit-autofill:active  {
+        transition: background-color 5000s;
+        -webkit-text-fill-color: #fff !important;
+    }
+}
