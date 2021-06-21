@@ -3,23 +3,40 @@
 @section('title', 'Кабінет')
 
 @section('content')
-    <nav class="font-primary navbar navbar-expand-lg navbar-dark bg-dark p-4">
-        <a class="navbar-brand font-weight-bold text-shadow" href="#"><span class="text-primary">Division</span> <span class="text-danger">55</span></a>
+    <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
+        <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="../images/logo_old_small.png" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Курси</a>
+                    <a class="nav-link">Курси</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Сертифікати</a>
+                    <a class="nav-link color-grey" href="#">Сертифікати</a>
                 </li>
 
             </ul>
-            <form action="{{route("logout")}}" method="POST">@csrf<button class="btn btn-danger my-2 my-sm-0" type="submit">Вихід <span class="iconify" data-icon="uil:exit" data-inline="false"></span></button></form>
+            <form action="{{route("logout")}}" method="POST">@csrf<button class="background-red py-1 button shadow my-2 my-sm-0" type="submit">Вихід <span class="iconify" data-icon="uil:exit" data-inline="false"></span></button></form>
         </div>
     </nav>
+    <div class="background-image">
+        <div class="container">
+            <div class="row w-100">
+                <div class="col-md-4 col-sm-6 col-xs-12 my-5">
+                    <div class="neuro-card text-center p-5">
+                        <img src="../images/logo_old_big.png" class="w-75 text-center d-flex justify-content-center mx-auto">
+                        <h5 class="card-title font-weight-bold mt-4 mb-2">Основи стрільби</h5>
+                        <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">Пройдено на 53%</h6>
+                        <p class="card-text text-justify mb-4 small">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                        <a href="/course/hello" class="card-link button py-2 shadow mx-auto text-white">Перейти до курсу</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

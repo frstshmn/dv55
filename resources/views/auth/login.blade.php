@@ -7,10 +7,10 @@
     <div class="row"></div>
     <div class="row justify-content-center m-auto w-100">
         <div class="col-md-3">
-            <div class="glassmorphism-card">
-                <form method="POST" action="{{ route('login') }}" autocomplete="off" class="">
+            <div class="neuro-card  p-5 color-navy">
+                <form method="POST" action="{{ route('login') }}" autocomplete="off">
                     <img src="../images/logo_old_big.png" class="shadow text-center d-flex justify-content-center mx-auto">
-                    <h4 class="font-weight-bold text-white text-center pt-3">Вхід</h4>
+                    <h4 class="font-weight-bold color-navy text-center pt-3">Log In</h4>
                     @csrf
                     <div class="mb-3">
                         <input type="text" placeholder="Ел. пошта" name="email" class="glassmorphism-input-dark small w-100" required>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="mx-auto">
-                        <button type="submit" class="shadow button background-red btn-block font-weight-bold">Увійти</button>
+                        <button type="submit" class="shadow button background-red btn-block font-weight-bold">Login</button>
                     </div>
                 </form>
             </div>
