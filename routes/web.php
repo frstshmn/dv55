@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +23,15 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+
+        $courses = Course::get();
+
+        return view('dashboard',[
+            'courses' => $courses,
+        ]);
     });
 
     Route::get('/course/{id}', 'App\Http\Controllers\CourseController@show');
+
+    Route::get('/material/{id}', 'App\Http\Controllers\MaterialController@show');
 });

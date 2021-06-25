@@ -9,10 +9,10 @@ class CourseController extends Controller
 {
     public function show($id){
 
-        //$course = Course::where('id', $id)->first();
+        $course = Course::where('id', $id)->first();
 
         return view('course', [
-            'course' => $id
+            'course' => $course
         ]);
     }
 }

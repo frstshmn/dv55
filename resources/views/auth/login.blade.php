@@ -3,13 +3,13 @@
 @section('title', 'Вхід')
 
 @section('content')
-<div class="background-image d-flex align-items-center ">
+<div class="background-light-grey vh-100 d-flex align-items-center ">
     <div class="row"></div>
     <div class="row justify-content-center m-auto w-100">
         <div class="col-md-3">
             <div class="neuro-card  p-5 color-navy">
                 <form method="POST" action="{{ route('login') }}" autocomplete="off">
-                    <img src="../images/logo_old_big.png" class="shadow text-center d-flex justify-content-center mx-auto">
+                    <img src="../images/logo_small.svg" class="text-center d-flex justify-content-center mx-auto">
                     <h4 class="font-weight-bold color-navy text-center pt-3">Log In</h4>
                     @csrf
                     <div class="mb-3">

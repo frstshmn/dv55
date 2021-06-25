@@ -14,11 +14,15 @@
 
 a:hover {
   text-decoration: none;
-  color: #DD2A1B;
+  color: #A6192E;
 }
 
 body {
   font-family: "Inter", sans-serif !important;
+}
+
+.vh-100 {
+  height: 100vh;
 }
 
 .text-shadow {
@@ -30,27 +34,27 @@ body {
 }
 
 .color-red {
-  color: #DD2A1B;
+  color: #A6192E;
 }
 
 .background-red {
-  background-color: #DD2A1B;
+  background-color: #A6192E;
 }
 
 .color-blue {
-  color: #00A3D3;
+  color: #7DA1C4;
 }
 
 .background-blue {
-  background-color: #00A3D3;
+  background-color: #7DA1C4;
 }
 
 .color-navy {
-  color: #14556F;
+  color: #041E42;
 }
 
 .background-navy {
-  background-color: #14556F;
+  background-color: #041E42;
 }
 
 .color-dark-grey {
@@ -62,11 +66,11 @@ body {
 }
 
 .color-grey {
-  color: #666;
+  color: #A7A8A9;
 }
 
 .background-grey {
-  background-color: #666;
+  background-color: #A7A8A9;
 }
 
 .color-light-grey {
@@ -78,8 +82,8 @@ body {
 }
 
 .button {
-  background: #dd2a1b;
-  background: linear-gradient(90deg, #dd2a1b 0%, #f26155 100%);
+  background: #A6192E;
+  background: linear-gradient(90deg, #A6192E 0%, #b74657 100%);
   padding: 1em;
   color: white;
   border: 0;
@@ -106,16 +110,14 @@ body {
 }
 
 .background-image {
-  height: 100vh;
-  background: #e0e0e0;
+  background-image: url("/images/earphones.png");
   background-size: 104% 120%;
   background-position: center;
 }
 
 form img {
-  width: 120px;
-  height: 120px;
-  border-radius: 100%;
+  width: 150px;
+  height: 150px;
 }
 
 input.glassmorphism-input-dark {
@@ -170,9 +172,25 @@ select:-webkit-autofill:focus {
   background: #666;
 }
 
-#sidebar h5 a:not(.collapsed) {
-  color: #DD2A1B;
+#sidebar {
+  z-index: 99;
 }
-#sidebar .collapse ul {
-  margin-left: 2em;
+#sidebar h5 a:not(.collapsed) {
+  color: #A6192E;
+}
+
+.pie {
+  position: relative;
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  background-color: #A6192E;
+}
+.pie .pie-inner {
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  transform: scale(0.95);
 }

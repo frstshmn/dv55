@@ -17,7 +17,7 @@ class CreateMaterialsTable extends Migration
             $table->increments('id');
             $table->string("title", 100);
             $table->integer('module_id')->unsigned();
-            $table->string("filename", 100);
+            $table->text("code");
 
             $table->foreign('module_id')->references('id')->on('modules');
         });
