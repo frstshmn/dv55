@@ -28,7 +28,15 @@
                                 <li class="material" data-id="{{$material->id}}"><span class="iconify h5 my-3 align-middle" data-icon="ps:book-tag" data-inline="false"></span> <span class="small">{{$material->title}}</span></li>
                             @endforeach
 
-                            <li class="test" data-id="1"><span class="iconify h5 my-3 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                            @php $i = 1; @endphp
+                            @foreach ($module->tests as $test)
+                                @if ($i > 1)
+                                    <li class="test" data-id="{{$test->id}}"><span class="iconify h5 my-3 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                                @else
+                                    <li class="test" data-id="{{$test->id}}"><span class="iconify h5 my-3 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                                @endif
+                                @php $i++; @endphp
+                            @endforeach
                         </ul>
                     </div>
                 </div>
