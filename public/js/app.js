@@ -26,8 +26,13 @@ $(document).on("click", '#start_test', function () {
   $('#sidebar').remove();
   $('#sidebar_thumb').removeClass("d-none");
 });
-
-function startTest(timer) {}
+$("button[data-target='#editCourseModal']").on('click', function () {
+  $.get("/courses/json/" + $(this).data("id"), function (data) {
+    $('#editCourseModal #identifier').val(JSON.parse(data).id);
+    $('#editCourseModal #title').val(JSON.parse(data).title);
+    $('#editCourseModal #description').val(JSON.parse(data).description);
+  });
+});
 
 /***/ }),
 

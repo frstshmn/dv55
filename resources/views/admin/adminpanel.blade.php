@@ -7,7 +7,7 @@
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
             <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="../images/logo_small.svg" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,12 +33,15 @@
                             <div class="neuro-card text-center p-5">
                                 <img src="../images/logo_big.svg" class="w-75 text-center d-flex justify-content-center mx-auto">
                                 <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->title}}</h5>
-                                <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">Пройдено на 53%</h6>
+                                <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">10 members</h6>
                                 <p class="card-text text-justify mb-4 small">
                                     {{$course->description}}
                                 </p>
                                 <div class="d-flex flex-row justify-content-around">
-                                    <button data-toggle="modal" data-target="#editCourseModal" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button>
+
+                                    <a href="/courses/json/{{$course->id}}" class="button py-2">JSON</a>
+
+                                    <button data-toggle="modal" data-target="#editCourseModal" data-id="{{$course->id}}" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button>
                                     <form method="POST" action="/courses">
                                         @csrf @method('DELETE')
                                         <input name="id" value="{{$course->id}}" required hidden>
@@ -68,11 +71,13 @@
                                     <div class="modal-body">
                                         @csrf
                                         <div class="mb-3">
-                                            <input type="text" placeholder="Course Title" name="title" class="glassmorphism-input-dark small w-100" required>
+                                            <label class="font-weight-bold">Title</label>
+                                            <input type="text" placeholder="Name your course" name="title" class="glassmorphism-input-dark small w-100" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" placeholder="Course Description" name="description" class="glassmorphism-input-dark small w-100" required>
+                                            <label class="font-weight-bold">Description</label>
+                                            <input type="text" placeholder="Make short description of topics in this course" name="description" class="glassmorphism-input-dark small w-100" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -94,13 +99,17 @@
                                 </div>
                                 <form method="POST" action="/courses" autocomplete="off">
                                     <div class="modal-body">
-                                        @csrf
+                                        @csrf @method('PUT')
+                                        <input type="text" id="identifier" name="identifier" required hidden>
+
                                         <div class="mb-3">
-                                            <input type="text" placeholder="Course Title" name="title" class="glassmorphism-input-dark small w-100" required>
+                                            <label class="font-weight-bold">Title</label>
+                                            <input type="text" placeholder="Name your course" id="title" name="title" class="glassmorphism-input-dark small w-100" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" placeholder="Course Description" name="description" class="glassmorphism-input-dark small w-100" required>
+                                            <label class="font-weight-bold">Description</label>
+                                            <input type="text" placeholder="Make short description of topics in this course" id="description" name="description" class="glassmorphism-input-dark small w-100" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

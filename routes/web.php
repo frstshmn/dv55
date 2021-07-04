@@ -45,13 +45,18 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/courses/{id}', 'App\Http\Controllers\CourseController@show');
+    //Admin
     Route::get('/courses/json/{id}', 'App\Http\Controllers\CourseController@getJSON');
     Route::post('/courses', 'App\Http\Controllers\CourseController@create');
+    Route::put('/courses', 'App\Http\Controllers\CourseController@update');
     Route::delete('/courses', 'App\Http\Controllers\CourseController@delete');
 
     Route::get('/materials/{id}', 'App\Http\Controllers\MaterialController@show');
+    //Admin
 
     Route::get('/tests/{id}', 'App\Http\Controllers\TestController@show');
+    //Admin
 
     Route::get('/tests/questions/{id}', 'App\Http\Controllers\TestController@getQuestions');
+    //Admin
 });
