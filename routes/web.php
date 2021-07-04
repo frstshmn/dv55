@@ -23,15 +23,35 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+
+    Route::get('/cabinet', function () {
 
         $courses = Course::get();
 
-        return view('dashboard',[
+        return view('user.cabinet',[
             'courses' => $courses,
         ]);
     });
 
-    Route::get('/course/{id}', 'App\Http\Controllers\CourseController@show');
+    Route::get('/admin', function () {
 
-    Route::get('/material/{id}', 'App\Http\Controllers\MaterialController@show');
+        $courses = Course::get();
+
+        return view('admin.adminpanel',[
+            'courses' => $courses,
+        ]);
+    });
+
+    Route::get('/courses/{id}', 'App\Http\Controllers\CourseController@show');
+    Route::get('/courses/json/{id}', 'App\Http\Controllers\CourseController@getJSON');
+    Route::post('/courses', 'App\Http\Controllers\CourseController@create');
+    Route::delete('/courses', 'App\Http\Controllers\CourseController@delete');
+
+    Route::get('/materials/{id}', 'App\Http\Controllers\MaterialController@show');
+
+    Route::get('/tests/{id}', 'App\Http\Controllers\TestController@show');
+
+    Route::get('/tests/questions/{id}', 'App\Http\Controllers\TestController@getQuestions');
 });

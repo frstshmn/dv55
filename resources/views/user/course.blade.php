@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="row background-light-grey w-100 m-0">
-    <div class="col-2 shadow pr-0" id="sidebar">
+    <div class="col-2 pr-0 position-fixed background-light-grey vh-100" id="sidebar">
         <div id="total" class="px-4 pt-4">
-            <div class="pie mx-auto shadow" style="background-image: linear-gradient(230deg, transparent 50%, #A6192E 50%), linear-gradient(90deg, #e0e0e0 50%, transparent 50%);">
+            <div class="pie mx-auto shadow" style="background-image: linear-gradient(230deg, transparent 50%, #041E42 50%), linear-gradient(90deg, #e0e0e0 50%, transparent 50%);">
                 <h5 class="text-center pie-inner justify-content-center d-flex flex-column 9align-items-center">
                     <div>{{$course->title}}</div>
                     <div class="small">75%</div>
@@ -43,7 +43,10 @@
             @endforeach
         </div>
     </div>
-    <div class="col-10" id="material_content">
+    <div class="col-2 pr-0 position-fixed background-light-grey vh-100 d-flex justify-content-center align-items-center text-center d-none" id="sidebar_thumb">
+        <span class="iconify color-dark-grey h1" data-icon="ic:baseline-lock" data-inline="false"></span>
+    </div>
+    <div class="offset-2 col-10" id="material_content">
     </div>
 </div>
 

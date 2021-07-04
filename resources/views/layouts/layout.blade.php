@@ -16,7 +16,7 @@
     <title>DV55 | @yield('title')</title>
 </head>
 
-<body>
+<body class=" background-light-grey">
         @yield('content')
 
     <!-- Iconify, JQuery, Popper.js and Bootstrap.js -->
