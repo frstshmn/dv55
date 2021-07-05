@@ -51,6 +51,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/courses', 'App\Http\Controllers\CourseController@update');
     Route::delete('/courses', 'App\Http\Controllers\CourseController@delete');
 
+    //Admin
+    Route::get('/modules/{id}', 'App\Http\Controllers\ModuleController@getJSON');
+    Route::post('/modules', 'App\Http\Controllers\ModuleController@create');
+    Route::put('/modules', 'App\Http\Controllers\ModuleController@update');
+    Route::delete('/modules', 'App\Http\Controllers\ModuleController@delete');
+
     Route::get('/materials/{id}', 'App\Http\Controllers\MaterialController@show');
     //Admin
 

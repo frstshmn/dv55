@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -10,7 +11,7 @@ class CourseController extends Controller
 
     /** Course view
      * @method GET
-     * @param request - course ID
+     * @param id - course ID
      * @return HTTP_CODE
     */
     public function show($id){
@@ -24,7 +25,7 @@ class CourseController extends Controller
 
     /** Get JSON-foratted data of course by ID
      * @method GET
-     * @param request - ID of course
+     * @param id - ID of course
      * @return HTTP_CODE
     */
     public function getJSON($id){
@@ -81,12 +82,13 @@ class CourseController extends Controller
         ]);
 
         $course = Course::where('id', $request->id)->first();
+
+            $modules = Module::where('course_id', $course->id);
+            $modules->delete();
+
         $course->delete();
 
         return redirect()->back();
     }
-
-
-
 
 }
