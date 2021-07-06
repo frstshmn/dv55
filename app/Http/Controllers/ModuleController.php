@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Module;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -17,6 +18,18 @@ class ModuleController extends Controller
         $module = Module::where('id', $id)->first();
 
         return json_encode($module);
+    }
+
+    /** Get JSON-foratted data of material by module ID
+     * @method GET
+     * @param id - ID of module
+     * @return HTTP_CODE
+    */
+    public function getMaterials($module_id){
+
+        $materials = Material::where('module_id', $module_id)->get();
+
+        return json_encode($materials);
     }
 
     /** Create new module
@@ -46,10 +59,10 @@ class ModuleController extends Controller
     */
     public function update(Request $request){
 
-        $course = Module::where('id', $request->identifier)->first();
-        $course->title = $request->title;
-        $course->course_id = $request->course_id;
-        $course->save();
+        $module = Module::where('id', $request->identifier)->first();
+        $module->title = $request->title;
+        $module->course_id = $request->course_id;
+        $module->save();
 
         return redirect()->back();
     }
@@ -65,8 +78,12 @@ class ModuleController extends Controller
             'id' => 'required',
         ]);
 
-        $course = Module::where('id', $request->id)->first();
-        $course->delete();
+        $module = Module::where('id', $request->id)->first();
+
+            $materials = Material::where('module_id', $module->id);
+            $materials->delete();
+
+        $module->delete();
 
         return redirect()->back();
     }

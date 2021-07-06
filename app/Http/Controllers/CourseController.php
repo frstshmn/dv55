@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Module;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -18,7 +19,7 @@ class CourseController extends Controller
 
         $course = Course::where('id', $id)->first();
 
-        return view('course', [
+        return view('user.course', [
             'course' => $course
         ]);
     }
@@ -84,6 +85,12 @@ class CourseController extends Controller
         $course = Course::where('id', $request->id)->first();
 
             $modules = Module::where('course_id', $course->id);
+
+                foreach ($modules as $module){
+                    $materials = Material::where('module_id', $module->id);
+                    $materials->delete();
+                }
+
             $modules->delete();
 
         $course->delete();

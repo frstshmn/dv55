@@ -11,7 +11,7 @@ class TestController extends Controller
 
         $test = Test::where('id', $id)->first();
 
-        return view('test', [
+        return view('user.test', [
             'test' => $test
         ]);
     }
@@ -20,7 +20,7 @@ class TestController extends Controller
 
         $test = Test::where('id', $id)->first();
 
-        return view('questions', [
+        return view('user.questions', [
             'test' => $test
         ]);
     }

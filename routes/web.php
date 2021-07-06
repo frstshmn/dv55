@@ -53,12 +53,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Admin
     Route::get('/modules/{id}', 'App\Http\Controllers\ModuleController@getJSON');
+    Route::get('/modules/{id}/materials', 'App\Http\Controllers\ModuleController@getMaterials');
     Route::post('/modules', 'App\Http\Controllers\ModuleController@create');
     Route::put('/modules', 'App\Http\Controllers\ModuleController@update');
     Route::delete('/modules', 'App\Http\Controllers\ModuleController@delete');
 
     Route::get('/materials/{id}', 'App\Http\Controllers\MaterialController@show');
     //Admin
+    Route::get('/materials/json/{id}', 'App\Http\Controllers\MaterialController@getJSON');
+    Route::post('/materials', 'App\Http\Controllers\MaterialController@create');
+    Route::put('/materials', 'App\Http\Controllers\MaterialController@update');
+    Route::delete('/materials', 'App\Http\Controllers\MaterialController@delete');
 
     Route::get('/tests/{id}', 'App\Http\Controllers\TestController@show');
     //Admin
