@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //Admin
-    Route::get('/modules/{id}', 'App\Http\Controllers\ModuleController@getJSON');
+    Route::get('/modules/json/{id}', 'App\Http\Controllers\ModuleController@getJSON');
     Route::get('/modules/{id}/materials', 'App\Http\Controllers\ModuleController@getMaterials');
     Route::post('/modules', 'App\Http\Controllers\ModuleController@create');
     Route::put('/modules', 'App\Http\Controllers\ModuleController@update');
@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //Admin
-    Route::get('/users/{id}', 'App\Http\Controllers\UserController@getJSON');
+    Route::get('/users/json/{id}', 'App\Http\Controllers\UserController@getJSON');
     Route::post('/users', 'App\Http\Controllers\UserController@create');
     Route::put('/users', 'App\Http\Controllers\UserController@update');
     Route::delete('/users', 'App\Http\Controllers\UserController@delete');

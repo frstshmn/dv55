@@ -23,7 +23,7 @@ $("button[data-target='#editModuleModal']").on('click', function(){
 $(".show-materials").on('click', function(){
     $('#module_materials').empty();
     let id = $(this).data("id");
-    $.get("/modules/" + id , function( data ) {
+    $.get("/modules/json/" + id , function( data ) {
         $('#module_materials').append('<p class="font-weight-bold text-center" id="module_name">Materials of '+ JSON.parse(data).title +'</p>');
         $.get("modules/"+ id +"/materials/", function( data ) {
             $.each(JSON.parse(data), function(index, element){
@@ -44,5 +44,14 @@ $(document).on('click', "button[data-target='#editMaterialModal']", function(){
         $('#edit_material #title').val(JSON.parse(data).title);
         $('#edit_material #code').val(JSON.parse(data).code);
         $('#delete_material #identifier').val(JSON.parse(data).id);
+    });
+});
+
+$(document).on('click', "button[data-target='#editUserModal']", function(){
+    $.get("/users/json/" + $(this).data("id"), function( data ) {
+        $('#editUserModal #identifier').val(JSON.parse(data).id);
+        $('#editUserModal #name').val(JSON.parse(data).name);
+        $('#editUserModal #email').val(JSON.parse(data).email);
+        $('#editUserModal #is_admin').val(JSON.parse(data).is_admin);
     });
 });

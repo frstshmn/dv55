@@ -52,20 +52,28 @@ class UserController extends Controller
         }
     }
 
-    // /** Update existing course
-    //  * @method PUT
-    //  * @param request - values to insert into course table
-    //  * @return HTTP_CODE
-    // */
-    // public function update(Request $request){
+    /** Update existing user
+     * @method PUT
+     * @param request - values to insert into user table
+     * @return HTTP_CODE
+    */
+    public function update(Request $request){
 
-    //     $course = Course::where('id', $request->identifier)->first();
-    //     $course->title = $request->title;
-    //     $course->description = $request->description;
-    //     $course->save();
+        $user = User::where('id', $request->id)->first();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->is_admin = $request->is_admin;
+        if(!empty($request->password)){
+            if($request->password == $request->password_confirmation){
+                $user->password = Hash::make($request->password);
+            } else {
+                return "Entered passwords doesn't match!";
+            }
+        }
+        $user->save();
 
-    //     return redirect()->back();
-    // }
+        return redirect()->back();
+    }
 
     /** Delete user by ID
      * @method DELETE

@@ -47,7 +47,7 @@
                                     <div class="dropdown">
                                         <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                         <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
-                                            <button data-toggle="modal" data-target="#editModuleModal" data-id="{{$user->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
+                                            <button data-toggle="modal" data-target="#editUserModal" data-id="{{$user->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
                                             <form method="POST" action="/users">
                                                 @csrf @method('DELETE')
                                                 <input name="id" value="{{$user->id}}" required hidden>
@@ -87,7 +87,7 @@
                                     <div class="dropdown">
                                         <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                         <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
-                                            <button data-toggle="modal" data-target="#editModuleModal" data-id="{{$user->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
+                                            <button data-toggle="modal" data-target="#editUserModal" data-id="{{$user->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
                                             <form method="POST" action="/users">
                                                 @csrf @method('DELETE')
                                                 <input name="id" value="{{$user->id}}" required hidden>
@@ -114,7 +114,6 @@
                                     @csrf
 
                                     <div class="modal-body">
-                                        @csrf
                                         <div class="mb-3">
                                             <label class="font-weight-bold">Name</label>
                                             <input type="text" placeholder="First and last name" name="name" class="glassmorphism-input-dark small w-100" required>
@@ -161,23 +160,43 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form method="POST" action="/courses" autocomplete="off">
+                                <form method="POST" action="/users" autocomplete="off">
+                                    @csrf @method('PUT')
+
+                                    <input type="text" id="identifier" name="id" class="glassmorphism-input-dark small w-100" required hidden>
+
                                     <div class="modal-body">
-                                        @csrf @method('PUT')
-                                        <input type="text" id="identifier" name="identifier" required hidden>
-
                                         <div class="mb-3">
-                                            <label class="font-weight-bold">Title</label>
-                                            <input type="text" placeholder="Name your course" id="title" name="title" class="glassmorphism-input-dark small w-100" required>
+                                            <label class="font-weight-bold">Name</label>
+                                            <input type="text" placeholder="First and last name" id="name" name="name" class="glassmorphism-input-dark small w-100" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="font-weight-bold">Description</label>
-                                            <input type="text" placeholder="Make short description of topics in this course" id="description" name="description" class="glassmorphism-input-dark small w-100" required>
+                                            <label class="font-weight-bold">Email</label>
+                                            <input type="email" placeholder="An email which will be used for login" id="email" name="email" class="glassmorphism-input-dark small w-100" required>
                                         </div>
+
+                                        <div class="mb-3">
+                                            <label class="font-weight-bold">Password</label>
+                                            <input type="text" placeholder="More than 8 characters" name="password" class="glassmorphism-input-dark small w-100">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="font-weight-bold">Confirm password</label>
+                                            <input type="text" placeholder="Confirm it here" name="password_confirmation" class="glassmorphism-input-dark small w-100">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="font-weight-bold">User type</label>
+                                            <select id="is_admin" name="is_admin">
+                                                <option value="0" selected>Regular user</option>
+                                                <option value="1">Administartor</option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="button py-2 mx-auto px-5">Save</button>
+                                        <button type="submit" class="button py-2 mx-auto px-5">Create</button>
                                     </div>
                                 </form>
                             </div>
