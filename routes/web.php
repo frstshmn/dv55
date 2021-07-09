@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\Course;
-use Illuminate\Support\Facades\Auth;
 use App\Models\UserCourses;
-use Illuminate\Support\Collection;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,30 +30,45 @@ Route::group(['middleware' => 'auth'], function () {
         return view('dashboard');
     });
 
+
+// User dashboard
     Route::get('/cabinet', function () {
 
         $courses = UserCourses::where('user_id', Auth::user()->id)->get();
-
         return view('user.cabinet',[
             'courses' => $courses,
         ]);
+
     });
 
+
+
+// Admin dashboard
     Route::get('/admin', function () {
-
         $courses = Course::get();
-
         return view('admin.adminpanel',[
             'courses' => $courses,
         ]);
     });
 
+    Route::get('/users', function () {
+        $users = User::get();
+        return view('admin.users',[
+            'users' => $users,
+        ]);
+    });
+
+
+
+// Entity routes
     Route::get('/courses/{id}', 'App\Http\Controllers\CourseController@show');
     //Admin
     Route::get('/courses/json/{id}', 'App\Http\Controllers\CourseController@getJSON');
     Route::post('/courses', 'App\Http\Controllers\CourseController@create');
     Route::put('/courses', 'App\Http\Controllers\CourseController@update');
     Route::delete('/courses', 'App\Http\Controllers\CourseController@delete');
+
+
 
     //Admin
     Route::get('/modules/{id}', 'App\Http\Controllers\ModuleController@getJSON');
@@ -61,6 +77,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/modules', 'App\Http\Controllers\ModuleController@update');
     Route::delete('/modules', 'App\Http\Controllers\ModuleController@delete');
 
+
+
     Route::get('/materials/{id}', 'App\Http\Controllers\MaterialController@show');
     //Admin
     Route::get('/materials/json/{id}', 'App\Http\Controllers\MaterialController@getJSON');
@@ -68,9 +86,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/materials', 'App\Http\Controllers\MaterialController@update');
     Route::delete('/materials', 'App\Http\Controllers\MaterialController@delete');
 
+
+
     Route::get('/tests/{id}', 'App\Http\Controllers\TestController@show');
     //Admin
 
+
+
     Route::get('/tests/questions/{id}', 'App\Http\Controllers\TestController@getQuestions');
     //Admin
+
+
+
+    //Admin
+    Route::get('/users/{id}', 'App\Http\Controllers\UserController@getJSON');
+    Route::post('/users', 'App\Http\Controllers\UserController@create');
+    Route::put('/users', 'App\Http\Controllers\UserController@update');
+    Route::delete('/users', 'App\Http\Controllers\UserController@delete');
 });

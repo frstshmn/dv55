@@ -1,7 +1,7 @@
 @if (Auth::user()->is_admin == 1)
     @extends('layouts.layout')
 
-    @section('title', 'Course list')
+    @section('title', 'Courses')
 
     @section('content')
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
@@ -13,13 +13,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-3 active">
-                        <a class="nav-link">Courses</a>
+                        <a class="nav-link color-dark-grey" href="#">Courses</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link color-grey" href="#">Tests</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-grey" href="#">Users</a>
+                        <a class="nav-link color-grey" href="/users">Users</a>
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link color-grey" href="#">Messages</a>
