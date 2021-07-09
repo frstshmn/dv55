@@ -29,12 +29,12 @@
                     <div class="col-md-4 col-sm-6 col-xs-12 my-5">
                         <div class="neuro-card text-center p-5">
                             <img src="../images/logo_big.svg" class="w-75 text-center d-flex justify-content-center mx-auto">
-                            <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->title}}</h5>
+                            <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->course->title}}</h5>
                             <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">Пройдено на 53%</h6>
                             <p class="card-text text-justify mb-4 small">
-                                {{$course->description}}
+                                {{$course->course->description}}
                             </p>
-                            <a href="/courses/{{$course->id}}" class="card-link button py-2 shadow mx-auto text-white">Перейти до курсу</a>
+                            <a href="/courses/{{$course->course->id}}" class="card-link button py-2 shadow mx-auto text-white">Перейти до курсу</a>
                         </div>
                     </div>
                 @endforeach

@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
+use App\Models\UserCourses;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/cabinet', function () {
 
-        $courses = Course::get();
+        $courses = UserCourses::where('user_id', Auth::user()->id)->get();
 
         return view('user.cabinet',[
             'courses' => $courses,
