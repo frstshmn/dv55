@@ -156,6 +156,12 @@ input.glassmorphism-input-dark ::-webkit-input-placeholder, input.glassmorphism-
   color: #aaa;
 }
 
+.text-overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -197,11 +203,19 @@ select:-webkit-autofill:focus {
 
 #sidebar {
   z-index: 99;
-  background: #e0e0e0;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  position: fixed;
+  margin-left: 1em;
+  margin-top: 1em;
+  height: calc(100% - 2em);
 }
-#sidebar h5 a:not(.collapsed) {
+#sidebar h6 a {
+  color: #222;
+}
+#sidebar h6 a[area-expanded=true] {
   color: #A6192E;
+}
+#sidebar #accordion {
+  overflow: auto;
 }
 
 #sidebar_thumb {

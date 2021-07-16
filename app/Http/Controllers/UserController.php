@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserCourses;
+use App\Models\Course;
 use App\Models\Answer;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,6 +24,19 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
 
         return json_encode($user);
+    }
+
+    public function getCourses($id){
+
+        $user = User::where('id', $id)->first();
+
+        $courses = array();
+
+        foreach($user->courses as $course){
+            $courses[] = Course::where('id', $course->course_id)->first();
+        }
+
+        return json_encode($courses);
     }
 
     /** Create new user

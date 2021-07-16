@@ -9,7 +9,7 @@
         <div class="col-md-3">
             <div class="neuro-card  p-5 color-navy">
                 <form method="POST" action="{{ route('login') }}" autocomplete="off">
-                    <img src="../images/logo_small.svg" class="text-center d-flex justify-content-center mx-auto">
+                    <img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto">
                     <h4 class="font-weight-bold color-navy text-center pt-3">Log In</h4>
                     @csrf
                     <div class="mb-3">

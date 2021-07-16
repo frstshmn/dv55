@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\UserComplection;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
@@ -15,9 +16,15 @@ class MaterialController extends Controller
     public function show($id){
 
         $material = Material::where('id', $id)->first();
+        $next_id = Material::where([
+            ['id', '>', $id],
+            ['module_id', '=', $material->module->id]
+        ])->min('id');
 
+        $next_material = Material::where('id', $next_id)->first();
         return view('user.material', [
-            'material' => $material
+            'material' => $material,
+            'next_material' => $next_material
         ]);
     }
 
@@ -82,6 +89,8 @@ class MaterialController extends Controller
         ]);
 
         $material = Material::where('id', $request->id)->first();
+            $usercomplection = UserComplection::where('material_id', $material->id);
+            $usercomplection->delete();
         $material->delete();
 
         return redirect()->back();

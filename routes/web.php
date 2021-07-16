@@ -53,8 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/users', function () {
         $users = User::get();
+        $courses = Course::get();
         return view('admin.users',[
             'users' => $users,
+            'courses' => $courses,
         ]);
     });
 
@@ -92,15 +94,20 @@ Route::group(['middleware' => 'auth'], function () {
     //Admin
 
 
-
     Route::get('/tests/questions/{id}', 'App\Http\Controllers\TestController@getQuestions');
     //Admin
 
 
-
     //Admin
     Route::get('/users/json/{id}', 'App\Http\Controllers\UserController@getJSON');
+    Route::get('/users/json/{id}/courses', 'App\Http\Controllers\UserController@getCourses');
     Route::post('/users', 'App\Http\Controllers\UserController@create');
     Route::put('/users', 'App\Http\Controllers\UserController@update');
     Route::delete('/users', 'App\Http\Controllers\UserController@delete');
+
+    //Admin
+    Route::post('/usercourses', 'App\Http\Controllers\UserCoursesController@create');
+    Route::delete('/usercourses', 'App\Http\Controllers\UserCoursesController@delete');
+
+    Route::post('/usercomplection', 'App\Http\Controllers\UserComplectionController@create');
 });

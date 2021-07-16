@@ -1,3 +1,9 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $("button[data-target='#editCourseModal']").on('click', function(){
     $.get("/courses/json/" + $(this).data("id"), function( data ) {
         $('#editCourseModal #identifier').val(JSON.parse(data).id);
@@ -13,7 +19,7 @@ $("button[data-target='#addModuleModal']").on('click', function(){
 });
 
 $("button[data-target='#editModuleModal']").on('click', function(){
-    $.get("/modules/" + $(this).data("id"), function( data ) {
+    $.get("/modules/json/" + $(this).data("id"), function( data ) {
         $('#editModuleModal #identifier').val(JSON.parse(data).id);
         $('#editModuleModal #title').val(JSON.parse(data).title);
         $('#editModuleModal #course_id').val(JSON.parse(data).course_id);
@@ -48,10 +54,35 @@ $(document).on('click', "button[data-target='#editMaterialModal']", function(){
 });
 
 $(document).on('click', "button[data-target='#editUserModal']", function(){
-    $.get("/users/json/" + $(this).data("id"), function( data ) {
+    let user_id = $(this).data("id");
+    $.get("/users/json/" + user_id, function( data ) {
         $('#editUserModal #identifier').val(JSON.parse(data).id);
+        $('#editUserModal #user_id').val(JSON.parse(data).id);
         $('#editUserModal #name').val(JSON.parse(data).name);
         $('#editUserModal #email').val(JSON.parse(data).email);
         $('#editUserModal #is_admin').val(JSON.parse(data).is_admin);
     });
+
+    $.get("/users/json/" + user_id + "/courses", function( data ) {
+        $('#user_courses').empty();
+        $.each(JSON.parse(data), function(index, element){
+            $('#editUserModal #user_courses').append('<div class="neuro-card py-3 my-3 px-4 d-flex flex-row w-100 justify-content-between align-items-center" data-delete="'+ element.id +'"><div class="text-left" >'+ element.title +'</div><button class="card-link button py-2 px-4 shadow text-white align-middle delete-course" data-course="'+ element.id +'" data-user="'+ user_id +'"><span class="iconify align-middle mb-1" data-icon="fa-regular:trash-alt" data-inline="false"></span></button></div>');
+        })
+    });
 });
+
+$(document).on('click', ".delete-course", function(){
+    $.ajax({
+        url: '/usercourses',
+        type: 'DELETE',
+        data: {
+            user_id: $(this).data("user"),
+            course_id: $(this).data("course")
+        },
+        success: function(result) {
+            location.href = location.href;
+            //$('#user_courses').remove('div[data-delete="'+$(this).data("course")+'"]');
+        }
+    });
+});
+

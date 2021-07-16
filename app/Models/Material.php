@@ -9,4 +9,8 @@ class Material extends Model
 {
     public $timestamps = false;
     use HasFactory;
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
 }

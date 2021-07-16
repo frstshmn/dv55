@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/css/app.css') }}" rel="stylesheet">
 
     <title>DV55 | @yield('title')</title>
 </head>
@@ -31,7 +31,7 @@
     </script>
 
     <!-- User scripts -->
-    <script src="{{ URL::asset('js/app.js') }}"></script>
+    <script src="{{ URL::asset('public/js/app.js') }}"></script>
     @yield('additional_scripts')
 </body>
 

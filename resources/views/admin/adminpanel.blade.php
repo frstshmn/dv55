@@ -5,7 +5,7 @@
 
     @section('content')
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="../images/logo_small.svg" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
+            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,8 +37,8 @@
                     @foreach ($courses as $course)
                         <div class="col-12 my-5">
                             <div class="neuro-card text-center p-5 row">
-                                <div class="col-4">
-                                    <img src="../images/logo_big.svg" class="w-75 text-center d-flex justify-content-center mx-auto">
+                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5">
+                                    <img src="{{ URL::asset('public/images/logo_big.svg') }}" class="w-75 text-center d-flex justify-content-center mx-auto">
                                     <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->title}}</h5>
                                     <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">10 members</h6>
                                     <p class="card-text text-justify mb-4 small">
@@ -56,7 +56,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5">
                                     <p class="font-weight-bold text-center">Modules</p>
                                     @foreach ($course->modules as $module)
                                     <div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center">
@@ -77,7 +77,7 @@
                                     @endforeach
                                     <button data-toggle="modal" data-target="#addModuleModal" data-id="{{$course->id}}" class="card-link button py-2 shadow mx-auto text-white align-middle">Create new module <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
                                 </div>
-                                <div class="col-4" id="module_materials" data-module="0">
+                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5" id="module_materials" data-module="0">
                                     <p class="font-weight-bold text-center" id="module_name">Materials</p>
                                 </div>
                             </div>
@@ -199,8 +199,8 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="addMaterialModal" tabindex="-1" role="dialog" aria-labelledby="addMaterialModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal fade px-5" id="addMaterialModal" tabindex="-1" role="dialog" aria-labelledby="addMaterialModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered mw-100" role="document">
                             <div class="modal-content border-0 neuro-card shadow p-5">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="addMaterialModalLabel">Add new material</h5>
@@ -229,8 +229,8 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="editMaterialModal" tabindex="-1" role="dialog" aria-labelledby="editMaterialModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal fade px-5" id="editMaterialModal" tabindex="-1" role="dialog" aria-labelledby="editMaterialModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered mw-100" role="document">
                             <div class="modal-content border-0 neuro-card shadow p-5">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editMaterialModalLabel">Edit material</h5>
@@ -268,7 +268,7 @@
         </div>
     @endsection
     @section('additional_scripts')
-        <script src="{{ URL::asset('js/admin.js') }}"></script>
+        <script src="{{ URL::asset('public/js/admin.js') }}"></script>
     @endsection
 @else
     @php

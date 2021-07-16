@@ -18,6 +18,12 @@ class UserCourses extends Model
 
     }
 
+    public function user(){
+
+        return $this->belongsTo(User::class);
+
+    }
+
     public static function checkUser(){
         $available_courses = UserCourses::where('user_id', Auth::user()->id)->get();
 

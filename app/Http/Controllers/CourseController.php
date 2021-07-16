@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Material;
+use App\Models\UserComplection;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -88,7 +89,12 @@ class CourseController extends Controller
 
                 foreach ($modules as $module){
                     $materials = Material::where('module_id', $module->id);
-                    $materials->delete();
+                    foreach($materials as $material){
+
+                        $usercomplection = UserComplection::where('material_id', $material->id);
+                        $usercomplection->delete();
+                        $material->delete();
+                    }
                 }
 
             $modules->delete();

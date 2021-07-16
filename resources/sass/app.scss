@@ -133,6 +133,12 @@ input.glassmorphism-input-dark {
     color: #666;
 }
 
+.text-overflow-ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -172,14 +178,20 @@ select:-webkit-autofill:focus {
 
 #sidebar{
     z-index: 99;
-    background: $neuro-bg;
-    box-shadow:  20px 20px 60px #bebebe,
-             -20px -20px 60px #ffffff;
-
-    h5{
-        a:not(.collapsed){
-            color:$red;
+    position: fixed;
+    margin-left: 1em;
+    margin-top: 1em;
+    height: calc(100% - 2em);
+    h6{
+        a{
+            color: #222;
+            &[area-expanded=true]{
+                color: $red;
+            }
         }
+    }
+    #accordion{
+        overflow: auto;
     }
 }
 

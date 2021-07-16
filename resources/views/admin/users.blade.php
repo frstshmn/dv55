@@ -5,7 +5,7 @@
 
     @section('content')
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="../images/logo_small.svg" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
+            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,7 +34,7 @@
                     <div class="col-12 text-center mt-4">
                         <button data-toggle="modal" data-target="#addUserModal" class="card-link button py-2 shadow mx-auto text-white align-middle">Create new user <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
                     </div>
-                    <div class="col-6 my-5 px-4">
+                    <div class="col-md-6 col-xs-12 my-5 px-4">
                         <div class="neuro-card text-center p-5 row">
                             <p class="font-weight-bold text-center">Regular users</span></p>
                             @foreach ($users as $user)
@@ -60,25 +60,11 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="col-6 my-5 px-4">
+                    <div class="col-md-6 col-xs-12 my-5 px-4">
                         <div class="neuro-card text-center p-5 row">
                             <p class="font-weight-bold text-center">Administrators</p>
                             @foreach ($users as $user)
-                                @if ($user->is_admin == 1 && $user->id == Auth::user()->id)
-                                <div class="neuro-card py-3 my-3 px-4 d-flex flex-row w-100 justify-content-between align-items-center">
-                                    <div class="text-left">
-                                        {{$user->name}}
-                                        <div class="small color-grey font-weight-bold">{{$user->email}}</div>
-                                    </div>
-                                    <div class="color-red font-weight-bold"
-                                     title="You cannot manage your information, ask other administrator for this or create new administrator">
-                                        You
-                                    </div>
-                                </div>
-                                @endif
-                            @endforeach
-                            @foreach ($users as $user)
-                                @if ($user->is_admin == 1 && $user->id != Auth::user()->id)
+                                @if ($user->is_admin == 1)
                                 <div class="neuro-card py-3 my-3 px-4 d-flex flex-row w-100 justify-content-between align-items-center">
                                     <div class="text-left">
                                         {{$user->name}}
@@ -151,8 +137,8 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal fade px-5" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered mw-100" role="document">
                             <div class="modal-content border-0 neuro-card shadow p-5">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editUserModalLabel">Edit user</h5>
@@ -160,45 +146,66 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form method="POST" action="/users" autocomplete="off">
-                                    @csrf @method('PUT')
 
-                                    <input type="text" id="identifier" name="id" class="glassmorphism-input-dark small w-100" required hidden>
 
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label class="font-weight-bold">Name</label>
-                                            <input type="text" placeholder="First and last name" id="name" name="name" class="glassmorphism-input-dark small w-100" required>
+                                    <div class="modal-body row">
+                                        <div class="col-md-6 col-xs-12 mt-md-0 mt-5">
+                                            <form method="POST" action="/users" autocomplete="off">
+                                                @csrf @method('PUT')
+
+                                                <input type="text" id="identifier" name="id" class="glassmorphism-input-dark small w-100" required hidden>
+
+                                                <div class="mb-3">
+                                                    <label class="font-weight-bold">Name</label>
+                                                    <input type="text" placeholder="First and last name" id="name" name="name" class="glassmorphism-input-dark small w-100" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="font-weight-bold">Email</label>
+                                                    <input type="email" placeholder="An email which will be used for login" id="email" name="email" class="glassmorphism-input-dark small w-100" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="font-weight-bold">Password</label>
+                                                    <input type="text" placeholder="More than 8 characters" name="password" class="glassmorphism-input-dark small w-100">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="font-weight-bold">Confirm password</label>
+                                                    <input type="text" placeholder="Confirm it here" name="password_confirmation" class="glassmorphism-input-dark small w-100">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="font-weight-bold">User type</label>
+                                                    <select id="is_admin" name="is_admin">
+                                                        <option value="0" selected>Regular user</option>
+                                                        <option value="1">Administartor</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="button py-2 mx-auto px-5">Create</button>
+                                            </form>
                                         </div>
+                                        <div class="col-md-6 col-xs-12 mt-md-0 mt-5">
+                                            <div class="dropdown">
+                                                <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose course to add</button>
+                                                <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
+                                                    @foreach ($courses as $course)
+                                                        <form method="POST" action="/usercourses">
+                                                            @csrf
+                                                            <input name="user_id" id="user_id" value="" required hidden>
+                                                            <input name="course_id" value="{{$course->id}}" required hidden>
+                                                            <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">{{$course->title}}</button><br>
+                                                        </form>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <ul class="list-group" id="user_courses">
 
-                                        <div class="mb-3">
-                                            <label class="font-weight-bold">Email</label>
-                                            <input type="email" placeholder="An email which will be used for login" id="email" name="email" class="glassmorphism-input-dark small w-100" required>
+                                            </ul>
+
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label class="font-weight-bold">Password</label>
-                                            <input type="text" placeholder="More than 8 characters" name="password" class="glassmorphism-input-dark small w-100">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="font-weight-bold">Confirm password</label>
-                                            <input type="text" placeholder="Confirm it here" name="password_confirmation" class="glassmorphism-input-dark small w-100">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="font-weight-bold">User type</label>
-                                            <select id="is_admin" name="is_admin">
-                                                <option value="0" selected>Regular user</option>
-                                                <option value="1">Administartor</option>
-                                            </select>
-                                        </div>
-
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="button py-2 mx-auto px-5">Create</button>
-                                    </div>
-                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -206,7 +213,7 @@
 
     @endsection
     @section('additional_scripts')
-        <script src="{{ URL::asset('js/admin.js') }}"></script>
+        <script src="{{ URL::asset('public/js/admin.js') }}"></script>
     @endsection
 @else
     @php
