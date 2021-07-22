@@ -38,6 +38,10 @@ body {
     border-radius: 20px;
 }
 
+.z-index-99{
+    z-index: 99;
+}
+
 @each $name, $color in $colors {
     .color-#{$name} {
       color: $color !important;
@@ -179,9 +183,18 @@ select:-webkit-autofill:focus {
 #sidebar{
     z-index: 99;
     position: fixed;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y:scroll;
+    overflow-x:hidden;
     margin-left: 1em;
     margin-top: 1em;
     height: calc(100% - 2em);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     h6{
         a{
             color: #222;
@@ -221,3 +234,25 @@ select:-webkit-autofill:focus {
     cursor: pointer;
 }
 
+.loader {
+    background: none repeat scroll 0 0 $neuro-bg;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+
+    .loader_inner {
+        height: 60px;
+        width: 60px;
+        margin-top: -30px;
+        margin-left: -30px;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        animation: loading 1s infinite;
+    }
+}

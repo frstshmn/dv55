@@ -16,10 +16,10 @@
                         <a class="nav-link color-grey" href="/admin">Courses</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-grey" href="#">Tests</a>
+                        <a class="nav-link color-grey" href="/tests">Tests</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-dark-grey" href="#">Users</a>
+                        <a class="nav-link color-dark-grey">Users</a>
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link color-grey" href="#">Messages</a>

@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Course list')
+@section('title', 'Список курсів')
 
 @section('content')
     <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
@@ -12,14 +12,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link">Courses</a>
+                    <a class="nav-link">Курси</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link color-grey" href="#">Sertificates</a>
+                    <a class="nav-link color-grey" href="#">Сертифікати</a>
                 </li>
 
             </ul>
-            <form action="{{route("logout")}}" method="POST">@csrf<button class="background-red py-1 button shadow my-2 my-sm-0" type="submit">Exit <span class="iconify" data-icon="uil:exit" data-inline="false"></span></button></form>
+            <form action="{{route("logout")}}" method="POST">@csrf<button class="background-red py-1 button shadow my-2 my-sm-0" type="submit">Вийти <span class="iconify" data-icon="uil:exit" data-inline="false"></span></button></form>
         </div>
     </nav>
     <div class="background-light-grey">
@@ -30,11 +30,11 @@
                         <div class="neuro-card text-center p-5">
                             <img src="{{ URL::asset('public/images/logo_big.svg') }}" class="w-75 text-center d-flex justify-content-center mx-auto">
                             <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->course->title}}</h5>
-                            <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">53% passed</h6>
+                            <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">53% пройдено</h6>
                             <p class="card-text text-justify mb-4 small">
                                 {{$course->course->description}}
                             </p>
-                            <a href="/courses/{{$course->course->id}}" class="card-link button py-2 shadow mx-auto text-white">Proceed to course</a>
+                            <a href="/courses/{{$course->course->id}}" class="card-link button py-2 shadow mx-auto text-white">Перейти до курсу</a>
                         </div>
                     </div>
                 @endforeach

@@ -19,20 +19,20 @@
             @foreach ($course->modules as $module)
                 <div class="my-3">
                     <div class="px-1" role="tab">
-                        <h6 class="mb-0 py-1 text-overflow-ellipsis"><a class="collapsed" data-toggle="collapse" href="#module_{{$module->id}}" aria-expanded="true" aria-controls="module_{{$module->id}}"><span class="iconify" data-icon="codicon:file-submodule" data-inline="false"></span> <span class="small">{{$module->title}}</span></a></h6>
+                        <h6 class="mb-0 py-3 text-overflow-ellipsis"><a class="collapsed" data-toggle="collapse" href="#module_{{$module->id}}" aria-expanded="true" aria-controls="module_{{$module->id}}"><span class="iconify" data-icon="codicon:file-submodule" data-inline="false"></span> <span class="small">{{$module->title}}</span></a></h6>
                     </div>
                     <div id="module_{{$module->id}}" class="collapse" role="tabpanel">
                         <ul type="none" class="ml-4">
                             @foreach ($module->materials as $material)
-                                <li class="material text-overflow-ellipsis" data-id="{{$material->id}}"><span class="iconify h6 my-3 align-middle" data-icon="ps:book-tag" data-inline="false"></span> <span class="small">{{$material->title}}</span></li>
+                                <li class="material text-overflow-ellipsis" data-id="{{$material->id}}"><span class="iconify h6 my-2 align-middle" data-icon="ps:book-tag" data-inline="false"></span> <span class="small">{{$material->title}}</span></li>
                             @endforeach
 
                             @php $i = 1; @endphp
                             @foreach ($module->tests as $test)
                                 @if ($i > 1)
-                                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-3 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
                                 @else
-                                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-3 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
                                 @endif
                                 @php $i++; @endphp
                             @endforeach

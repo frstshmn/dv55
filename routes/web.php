@@ -3,6 +3,7 @@
 use App\Models\Course;
 use App\Models\UserCourses;
 use App\Models\User;
+use App\Models\Test;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,10 +52,21 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
     });
 
+    Route::get('/tests', function () {
+        $users = User::get();
+        $courses = Course::get();
+        $tests = Test::get();
+        return view('admin.testpanel',[
+            'users' => $users,
+            'courses' => $courses,
+            'tests' => $tests,
+        ]);
+    });
+
     Route::get('/users', function () {
         $users = User::get();
         $courses = Course::get();
-        return view('admin.users',[
+        return view('admin.userpanel',[
             'users' => $users,
             'courses' => $courses,
         ]);

@@ -11,12 +11,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-    <link href="{{ URL::asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
 
     <title>DV55 | @yield('title')</title>
+
+
 </head>
 
 <body class=" background-light-grey">
+    <div class="loader">
+        <div class="loader_inner">
+            <span class="iconify display-1" data-icon="eos-icons:three-dots-loading" data-inline="false"></span>
+        </div>
+    </div>
     @yield('content')
 
     <!-- Iconify, JQuery, Popper.js and Bootstrap.js -->
@@ -30,8 +37,16 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
+
+
     <!-- User scripts -->
-    <script src="{{ URL::asset('public/js/app.js') }}"></script>
+    <script>
+        $(window).on("load", function() {
+              $(".loader_inner").fadeOut();
+              $(".loader").delay(400).fadeOut("slow");
+        });
+    </script>
+    <script src="{{ URL::asset('js/app.js') }}"></script>
     @yield('additional_scripts')
 </body>
 

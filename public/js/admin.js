@@ -27,14 +27,18 @@ $("button[data-target='#editModuleModal']").on('click', function(){
 });
 
 $(".show-materials").on('click', function(){
-    $('#module_materials').empty();
+    $('#module_materials').empty().append('<span class="iconify display-1 material-loading" data-icon="eos-icons:three-dots-loading" data-inline="false"></span>');
     let id = $(this).data("id");
     $.get("/modules/json/" + id , function( data ) {
-        $('#module_materials').append('<p class="font-weight-bold text-center" id="module_name">Materials of '+ JSON.parse(data).title +'</p>');
+        $('.material-loading').remove();
+        $('#module_materials').append('<p class="font-weight-bold text-center" id="module_name">Materials of '+ JSON.parse(data).title +'</p>').append('<span class="iconify display-1 material-loading" data-icon="eos-icons:three-dots-loading" data-inline="false"></span>');
         $.get("modules/"+ id +"/materials/", function( data ) {
+            $('.material-loading').remove();
             $.each(JSON.parse(data), function(index, element){
-                $('#module_materials').append('<div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center">'+element.title+'<button data-toggle="modal" data-target="#editMaterialModal" data-id="'+element.id+'" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button></div>');
+                $('.material-loading').remove();
+                $('#module_materials').append('<div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center"><div class="small text-overflow-ellipsis">'+element.title+'</div><button data-toggle="modal" data-target="#editMaterialModal" data-id="'+element.id+'" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button></div>').append('<span class="iconify display-1 material-loading" data-icon="eos-icons:three-dots-loading" data-inline="false"></span>');
             })
+            $('.material-loading').remove();
             $('#module_materials').append('<button data-toggle="modal" data-target="#addMaterialModal" data-id="'+ id +'" class="card-link button py-2 shadow mx-auto text-white align-middle">Create new material <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>');
         });
     });
@@ -81,7 +85,6 @@ $(document).on('click', ".delete-course", function(){
         },
         success: function(result) {
             location.href = location.href;
-            //$('#user_courses').remove('div[data-delete="'+$(this).data("course")+'"]');
         }
     });
 });

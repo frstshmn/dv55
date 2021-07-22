@@ -13,10 +13,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item mx-3 active">
-                        <a class="nav-link color-dark-grey" href="#">Courses</a>
+                        <a class="nav-link color-dark-grey">Courses</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-grey" href="#">Tests</a>
+                        <a class="nav-link color-grey" href="/tests">Tests</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link color-grey" href="/users">Users</a>
@@ -60,7 +60,7 @@
                                     <p class="font-weight-bold text-center">Modules</p>
                                     @foreach ($course->modules as $module)
                                     <div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center">
-                                        <div>{{$module->title}}</div>
+                                        <div class="small text-overflow-ellipsis">{{$module->title}}</div>
                                         <div class="dropdown">
                                             <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                             <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
@@ -268,7 +268,7 @@
         </div>
     @endsection
     @section('additional_scripts')
-        <script src="{{ URL::asset('public/js/admin.js') }}"></script>
+        <script src="{{ URL::asset('js/admin.js') }}"></script>
     @endsection
 @else
     @php
