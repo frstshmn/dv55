@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
     });
 
-    Route::get('/tests', function () {
+    Route::get('/exams', function () {
         $users = User::get();
         $courses = Course::get();
         $tests = Test::get();
@@ -103,11 +103,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/tests/{id}', 'App\Http\Controllers\TestController@show');
-    //Admin
-
-
     Route::get('/tests/questions/{id}', 'App\Http\Controllers\TestController@getQuestions');
     //Admin
+    Route::get('/tests/json/{id}', 'App\Http\Controllers\TestController@getJSON');
+    Route::post('/tests', 'App\Http\Controllers\TestController@create');
+    Route::put('/tests', 'App\Http\Controllers\TestController@update');
+    Route::delete('/tests', 'App\Http\Controllers\TestController@delete');
+
+
+
+    //Admin
+    Route::get('/questions/json/{id}', 'App\Http\Controllers\QuestionController@getJSON');
+    Route::delete('/questions', 'App\Http\Controllers\QuestionController@delete');
+
 
 
     //Admin
@@ -122,4 +130,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/usercourses', 'App\Http\Controllers\UserCoursesController@delete');
 
     Route::post('/usercomplection', 'App\Http\Controllers\UserComplectionController@create');
+    //Admin
+
+    Route::post('/answers', 'App\Http\Controllers\AnswerController@create');
+    Route::get('/results', 'App\Http\Controllers\AnswerController@showResults')->name('results');
 });

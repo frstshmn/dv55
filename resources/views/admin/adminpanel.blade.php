@@ -16,7 +16,7 @@
                         <a class="nav-link color-dark-grey">Courses</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-grey" href="/tests">Tests</a>
+                        <a class="nav-link color-grey" href="/exams">Tests</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link color-grey" href="/users">Users</a>
@@ -268,7 +268,7 @@
         </div>
     @endsection
     @section('additional_scripts')
-        <script src="{{ URL::asset('js/admin.js') }}"></script>
+        <script src="{{ URL::asset('public/js/admin.js') }}"></script>
     @endsection
 @else
     @php

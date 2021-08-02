@@ -16,7 +16,7 @@
                         <a class="nav-link color-grey" href="/admin">Courses</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-grey" href="/tests">Tests</a>
+                        <a class="nav-link color-grey" href="/exams">Tests</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link color-dark-grey">Users</a>

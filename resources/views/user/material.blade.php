@@ -1,8 +1,4 @@
-<div class="container p-5">
-    <h1 class="">{{$material->title}}</h1>
-    <hr class="my-2">
-</div>
-<div class="container">
+<div class="container mt-5">
     @php echo($material->code) @endphp
 </div>
 <div class="container p-5 d-flex justify-content-center">

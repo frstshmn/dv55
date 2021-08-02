@@ -89,3 +89,46 @@ $(document).on('click', ".delete-course", function(){
     });
 });
 
+
+let question_count = 1;
+$(".add-question").on('click', function(e){
+    e.preventDefault();
+    $('#question_list').append('<div class="neuro-card mb-3 p-5" id="q'+ question_count +'"><div class="d-flex flex-row justify-content-between"><label class="font-weight-bold">Question '+ question_count +'</label><button type="button" class="close" ><span aria-hidden="true" class="delete-question" data-question="#q'+ question_count +'">&times;</span></button></div><input type="text" placeholder="Type here your question" name="question_'+ question_count +'" class="glassmorphism-input-dark small w-100" required><div class="row"><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ question_count +'" value="1" class="mr-2" required><label class="font-weight-bold">1. </label><input type="text" name="variant_1_'+ question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ question_count +'" value="2" class="mr-2" required><label class="font-weight-bold">2. </label><input type="text" name="variant_2_'+ question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ question_count +'" value="3" class="mr-2" required><label class="font-weight-bold">3. </label><input type="text" name="variant_3_'+ question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ question_count +'" value="4" class="mr-2" required><label class="font-weight-bold">4. </label><input type="text" name="variant_4_'+ question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div></div></div>')
+    $('#question_count').val($('#question_list .neuro-card').length);
+    question_count++;
+})
+
+$(document).on('click', ".delete-question", function(e){
+    e.preventDefault();
+    $($(this).data("question")).remove();
+})
+
+$(document).on('click', "button[data-target='#addTestModal']", function(){
+    $('#addTestModal #module_id').val($(this).data("module"));
+});
+
+$(document).on('click', "button[data-target='#editTestModal']", function(){
+    $.get("/tests/json/" + $(this).data("test"), function( data ) {
+        $('#editTestModal #time').val(JSON.parse(data).time);
+        $('#editTestModal #module_id').val(JSON.parse(data).module_id);
+        $('#editTestModal #test_id').val(JSON.parse(data).id);
+    });
+    $.get("/questions/json/" + $(this).data("test"), function( data ) {
+        $('#editTestModal #question_list').empty();
+
+        $.each(JSON.parse(data), function(index, element){
+            $('#editTestModal #question_list').append('<div class="neuro-card mb-3 p-5" id="q'+ element.id +'"><div class="d-flex flex-row justify-content-between"><label class="font-weight-bold">Question '+ element.id +'</label><button type="button" class="close" ><span aria-hidden="true" class="delete-question" data-question="#q'+ element.id +'">&times;</span></button></div><input type="text" placeholder="Type here your question" name="question_'+ element.id +'" value="'+ element.question +'" class="glassmorphism-input-dark small w-100" required><div class="row"><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ element.id +'" value="1" class="mr-2" required><label class="font-weight-bold">1. </label><input type="text" name="variant_1_'+ element.id +'" class="ml-2 glassmorphism-input-dark small w-100" value="'+ element.v_1 +'" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ element.id +'" value="2" class="mr-2" required><label class="font-weight-bold">2. </label><input type="text" name="variant_2_'+ element.id +'" value="'+ element.v_2 +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ element.id +'" value="3" class="mr-2" required><label class="font-weight-bold">3. </label><input type="text" name="variant_3_'+ element.id +'" value="'+ element.v_3 +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="correct_answer_'+ element.id +'" value="4" class="mr-2" required><label class="font-weight-bold">4. </label><input type="text" name="variant_4_'+ element.id +'" value="'+ element.v_4 +'" class="ml-2 glassmorphism-input-dark small w-100" required></div></div></div>')
+            $("input[name='correct_answer_"+ element.id + "'][value='"+ element.correct_answer +"']").prop("checked", true);
+        })
+
+    });
+    $('#editTestModal #question_count').val($('#editTestModal #question_list .neuro-card').length);
+});
+
+let new_question_count = 1;
+$("#editTestModal .add-question").on('click', function(e){
+    e.preventDefault();
+    $('#editTestModal #question_list').append('<div class="neuro-card mb-3 p-5" id="new_q'+ new_question_count +'"><div class="d-flex flex-row justify-content-between"><label class="font-weight-bold">Question '+ new_question_count +'</label><button type="button" class="close" ><span aria-hidden="true" class="delete-question" data-question="#new_q'+ new_question_count +'">&times;</span></button></div><input type="text" placeholder="Type here your question" name="new_question_'+ new_question_count +'" class="glassmorphism-input-dark small w-100" required><div class="row"><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="new_correct_answer_'+ new_question_count +'" value="1" class="mr-2" required><label class="font-weight-bold">1. </label><input type="text" name="new_variant_1_'+ new_question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="new_correct_answer_'+ new_question_count +'" value="2" class="mr-2" required><label class="font-weight-bold">2. </label><input type="text" name="new_variant_2_'+ new_question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="new_correct_answer_'+ new_question_count +'" value="3" class="mr-2" required><label class="font-weight-bold">3. </label><input type="text" name="new_variant_3_'+ new_question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div><div class="col-6 d-flex flex-row align-items-center"><input type="radio" name="new_correct_answer_'+ new_question_count +'" value="4" class="mr-2" required><label class="font-weight-bold">4. </label><input type="text" name="new_variant_4_'+ new_question_count +'" class="ml-2 glassmorphism-input-dark small w-100" required></div></div></div>')
+    $('#editTestModal #question_count').val($('#editTestModal #question_list .neuro-card').length);
+    new_question_count++;
+})

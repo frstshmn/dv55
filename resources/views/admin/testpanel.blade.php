@@ -5,7 +5,7 @@
 
     @section('content')
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
+            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,33 +32,35 @@
             <div class="container">
                 <div class="row w-100 m-0">
                     @foreach ($courses as $course)
-                        <div class="col-12 my-5">
-                            <div class="neuro-card text-center p-5 row">
-                                <h5 class="col-12 card-title font-weight-bold">{{$course->title}}</h5>
-                                @foreach ($course->modules as $module)
-                                    <div class="neuro-card col-md-4 col-xs-12 p-5">
-                                        <h6 class="mb-3 font-weight-bold">{{$module->title}}</h6>
-                                        @php $i = 1; @endphp
-                                        @foreach ($module->tests as $test)
-                                            <div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center">
-                                                <div>Test {{$i}}</div>
-                                                <div class="dropdown">
-                                                    <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                                    <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
-                                                        <button data-toggle="modal" data-target="#editTestModal" data-id="{{$module->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
-                                                        <form method="POST" action="/modules">
-                                                            @csrf @method('DELETE')
-                                                            <input name="id" value="{{$module->id}}" required hidden>
-                                                            <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
-                                                        </form>
+                        <div class="neuro-card col-12 p-5 my-5">
+                            <h5 class="card-title text-center mb-5 font-weight-bold">{{$course->title}}</h5>
+                            <div class="row justify-content-around">
+
+                                    @foreach ($course->modules as $module)
+                                        <div class="neuro-card col-md-5 col-xs-12 p-5 mb-5 text-center">
+                                            <h6 class="mb-3 font-weight-bold">{{$module->title}}</h6>
+                                            @php $i = 1; @endphp
+                                            @foreach ($module->tests as $test)
+                                                <div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center">
+                                                    <div>Test {{$i}}</div>
+                                                    <div class="dropdown">
+                                                        <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                        <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
+                                                            <button data-toggle="modal" data-target="#editTestModal" data-test="{{$test->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
+                                                            <form method="POST" action="/tests">
+                                                                @csrf @method('DELETE')
+                                                                <input name="id" value="{{$test->id}}" required hidden>
+                                                                <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            @php $i++; @endphp
-                                        @endforeach
-                                        <button data-toggle="modal" data-target="#addTestModal" class="card-link button py-2 shadow mx-auto text-white align-middle mt-5">Create new test <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
-                                    </div>
-                                @endforeach
+                                                @php $i++; @endphp
+                                            @endforeach
+                                            <button data-toggle="modal" data-module="{{$module->id}}" data-target="#addTestModal" class="card-link button py-2 shadow mx-auto text-white align-middle mt-5">Create new test <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -76,42 +78,53 @@
                         </button>
                     </div>
                     <form method="POST" action="/tests" autocomplete="off">
+                        <input name="count" id="question_count" value="0" hidden required>
+                        <input name="module_id" id="module_id" hidden required>
                         <div class="modal-body">
                             @csrf
+
                             <div class="mb-3">
                                 <label class="font-weight-bold">Time (in minutes)</label>
-                                <input type="text" placeholder="Name your test" name="title" class="glassmorphism-input-dark small w-100" required>
+                                <input type="text" placeholder="Test duration" name="time" class="glassmorphism-input-dark small w-100" required>
                             </div>
 
-                            <div id="question_list">
-                                <div class="neuro-card mb-3 p-5">
-                                    <label class="font-weight-bold">Question 1</label>
-                                    <input type="text" placeholder="Type here your question" name="question" class="glassmorphism-input-dark small w-100" required>
-                                    <div class="row">
-                                        <div class="col-6 d-flex flex-row align-items-center">
-                                            <input type="radio" name="correct_answer" class="mr-2" required>
-                                            <label class="font-weight-bold">1. </label>
-                                            <input type="text" name="variant_1" class="ml-2 glassmorphism-input-dark small w-100" required>
-                                        </div>
-                                        <div class="col-6 d-flex flex-row align-items-center">
-                                            <input type="radio" name="correct_answer" class="mr-2" required>
-                                            <label class="font-weight-bold">2. </label>
-                                            <input type="text" name="variant_2" class="ml-2 glassmorphism-input-dark small w-100" required>
-                                        </div>
-                                        <div class="col-6 d-flex flex-row align-items-center">
-                                            <input type="radio" name="correct_answer" class="mr-2" required>
-                                            <label class="font-weight-bold">3. </label>
-                                            <input type="text" name="variant_3" class="ml-2 glassmorphism-input-dark small w-100" required>
-                                        </div>
-                                        <div class="col-6 d-flex flex-row align-items-center">
-                                            <input type="radio" name="correct_answer" class="mr-2" required>
-                                            <label class="font-weight-bold">4. </label>
-                                            <input type="text" name="variant_4" class="ml-2 glassmorphism-input-dark small w-100" required>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="question_list"></div>
+
+                            <button class="button py-2 mx-auto add-question">Add new question <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="button py-2 mx-auto px-5">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editTestModal" tabindex="-1" role="dialog" aria-labelledby="editTestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content border-0 neuro-card shadow p-5">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTestModalLabel">Add new test</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="/tests" autocomplete="off">
+                        <input name="count" id="question_count" value="0" hidden required>
+                        <input name="module_id" id="module_id" hidden required>
+                        <input name="test_id" id="test_id" hidden required>
+                        <div class="modal-body">
+                            @csrf @method('PUT')
+
+                            <div class="mb-3">
+                                <label class="font-weight-bold">Time (in minutes)</label>
+                                <input type="text" placeholder="Test duration" name="time" id="time" class="glassmorphism-input-dark small w-100" required>
                             </div>
-                            <button class="button py-2 mx-auto">Add new question <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
+
+                            <div id="question_list"></div>
+
+                            <button class="button py-2 mx-auto add-question">Add new question <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
 
                         </div>
                         <div class="modal-footer">
@@ -123,7 +136,7 @@
         </div>
     @endsection
     @section('additional_scripts')
-        <script src="{{ URL::asset('js/admin.js') }}"></script>
+        <script src="{{ URL::asset('public/js/admin.js') }}"></script>
     @endsection
 @else
     @php

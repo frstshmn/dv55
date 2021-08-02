@@ -180,7 +180,7 @@ select:-webkit-autofill:focus {
     background: #666;
 }
 
-#sidebar{
+#sidebar, #sidebar_thumb{
     z-index: 99;
     position: fixed;
     -ms-overflow-style: none;

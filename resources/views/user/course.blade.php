@@ -24,15 +24,39 @@
                     <div id="module_{{$module->id}}" class="collapse" role="tabpanel">
                         <ul type="none" class="ml-4">
                             @foreach ($module->materials as $material)
-                                <li class="material text-overflow-ellipsis" data-id="{{$material->id}}"><span class="iconify h6 my-2 align-middle" data-icon="ps:book-tag" data-inline="false"></span> <span class="small">{{$material->title}}</span></li>
+                                @if ($material->isChecked())
+                                    <li class="material text-overflow-ellipsis text-muted" data-id="{{$material->id}}"><span class="iconify h6 my-2 align-middle" data-icon="ps:book-tag" data-inline="false"></span> <span class="small">{{$material->title}}</span></li>
+                                @else
+                                    <li class="material text-overflow-ellipsis" data-id="{{$material->id}}"><span class="iconify h6 my-2 align-middle" data-icon="ps:book-tag" data-inline="false"></span> <span class="small">{{$material->title}}</span></li>
+                                @endif
                             @endforeach
 
                             @php $i = 1; @endphp
                             @foreach ($module->tests as $test)
                                 @if ($i > 1)
-                                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                                    @if ($test->isAnswered())
+                                        @if ($test->isCompleted())
+                                            <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                                            @break
+                                        @else
+                                            <li class="test text-overflow-ellipsis text-danger" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                                        @endif
+                                    @else
+                                        <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                                        @break
+                                    @endif
                                 @else
-                                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                                    @if ($test->isAnswered())
+                                        @if ($test->isCompleted())
+                                            <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                                            @break
+                                        @else
+                                            <li class="test text-overflow-ellipsis text-danger" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                                        @endif
+                                    @else
+                                        <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                                        @break
+                                    @endif
                                 @endif
                                 @php $i++; @endphp
                             @endforeach
@@ -42,7 +66,7 @@
             @endforeach
         </div>
     </div>
-    <div class="col-2 pr-0 position-fixed vh-100 justify-content-center align-items-center text-center d-none" id="sidebar_thumb">
+    <div class="col-2 neuro-card p-0 justify-content-center align-items-center text-center d-none" id="sidebar_thumb">
         <span class="iconify color-dark-grey h1" data-icon="ic:baseline-lock" data-inline="false"></span>
     </div>
     <div class="offset-2 col-10 py-2 px-4 d-block" id="material_content">

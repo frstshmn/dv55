@@ -48,10 +48,27 @@ $('.test').on("click", function () {
 $(document).on("click", '#start_test', function () {
     $.get("/tests/questions/" + $(this).data("id"), function( data ) {
         $("#material_content").html(data);
+        let timeMinut = parseInt($('#test_timer').text()) * 60;
+        let timer = setInterval(function () {
+            seconds = timeMinut%60;
+            minutes = timeMinut/60%60;
+            if (timeMinut <= 0) {
+                clearInterval(timer);
+                $('#test').submit();
+            } else {
+                let strTimer = `${Math.trunc(minutes)}:${seconds}`;
+                $('#test_timer').text(strTimer);
+            }
+            --timeMinut;
+            console.log(strTimer);
+        }, 1000)
     });
+
     $('#sidebar').remove();
-    $('#sidebar_thumb').removeClass("d-none");
+    $('#sidebar_thumb').removeClass("d-none").addClass("d-flex");
 });
+
+
 
 
 
