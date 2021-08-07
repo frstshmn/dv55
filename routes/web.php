@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $courses = Course::get();
+    return view('welcome',[
+        'courses' => $courses,
+    ]);
+})->name('landing');
 
 require __DIR__.'/auth.php';
 
@@ -52,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
     });
 
-    Route::get('/exams', function () {
+    Route::get('/tests', function () {
         $users = User::get();
         $courses = Course::get();
         $tests = Test::get();
@@ -82,6 +85,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/courses', 'App\Http\Controllers\CourseController@update');
     Route::delete('/courses', 'App\Http\Controllers\CourseController@delete');
 
+    Route::post('/courses/sidebar/module', 'App\Http\Controllers\CourseController@getModule');
+    Route::post('/courses/sidebar/total', 'App\Http\Controllers\CourseController@getTotal');
 
 
     //Admin

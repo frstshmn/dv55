@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\Test;
 use App\Models\UserComplection;
 use Illuminate\Http\Request;
 
@@ -21,10 +22,13 @@ class MaterialController extends Controller
             ['module_id', '=', $material->module->id]
         ])->min('id');
 
+        $test = Test::where('module_id', $material->module->id)->first();
+
         $next_material = Material::where('id', $next_id)->first();
         return view('user.material', [
             'material' => $material,
-            'next_material' => $next_material
+            'next_material' => $next_material,
+            'test' => $test
         ]);
     }
 

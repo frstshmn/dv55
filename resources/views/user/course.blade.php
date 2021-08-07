@@ -5,13 +5,14 @@
 @section('content')
 <div class="row background-light-grey w-100 m-0 color-dark-grey">
     <div class="col-2 neuro-card p-0" id="sidebar">
-        <div id="total" class="px-4 pb-4 pt-2 text-center">
-            <a href="/cabinet" class="small font-weight-bold color-dark-grey"><span class="iconify" data-icon="eva:arrow-left-fill" data-inline="false"></span> Back to courses</a>
-            <div class="pie mx-auto shadow mt-4" style="background-image: linear-gradient(230deg, transparent 50%, #041E42 50%), linear-gradient(90deg, #e0e0e0 50%, transparent 50%);">
-                <h5 class="text-center pie-inner justify-content-center d-flex flex-column 9align-items-center">
-                    <div class="font-weight-bold">{{$course->title}}</div>
-                    <div class="small">75%</div>
-                </h5>
+        <div id="total" class="px-4 pb-4 pt-2 text-center background-gradient shadow" data-course="{{$course->id}}">
+            <a href="/cabinet" class="small font-weight-bold color-light-grey "><span class="iconify" data-icon="eva:arrow-left-fill" data-inline="false"></span>Back to courses</a>
+            <div class=" mx-auto mt-4 text-white text-left">
+                <div class="font-weight-bold text-center">{{$course->title}}</div>
+                <div class="small mt-4">{{ $course->totalScore(Auth::user()->id) }}%</div>
+                <div class="progress-wrapper rounded-corner">
+                    <div class="progress-bar" style="width: {{ $course->totalScore(Auth::user()->id) }}%"></div>
+                </div>
             </div>
         </div>
 
@@ -21,7 +22,7 @@
                     <div class="px-1" role="tab">
                         <h6 class="mb-0 py-3 text-overflow-ellipsis"><a class="collapsed" data-toggle="collapse" href="#module_{{$module->id}}" aria-expanded="true" aria-controls="module_{{$module->id}}"><span class="iconify" data-icon="codicon:file-submodule" data-inline="false"></span> <span class="small">{{$module->title}}</span></a></h6>
                     </div>
-                    <div id="module_{{$module->id}}" class="collapse" role="tabpanel">
+                    <div id="module_{{$module->id}}" class="collapse" role="tabpanel" data-module="{{$module->id}}">
                         <ul type="none" class="ml-4">
                             @foreach ($module->materials as $material)
                                 @if ($material->isChecked())
@@ -35,7 +36,7 @@
                             @foreach ($module->tests as $test)
                                 @if ($i > 1)
                                     @if ($test->isAnswered())
-                                        @if ($test->isCompleted())
+                                        @if ($test->isCompleted(Auth::user()->id))
                                             <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
                                             @break
                                         @else
@@ -47,7 +48,7 @@
                                     @endif
                                 @else
                                     @if ($test->isAnswered())
-                                        @if ($test->isCompleted())
+                                        @if ($test->isCompleted(Auth::user()->id))
                                             <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
                                             @break
                                         @else
@@ -65,6 +66,7 @@
                 </div>
             @endforeach
         </div>
+
     </div>
     <div class="col-2 neuro-card p-0 justify-content-center align-items-center text-center d-none" id="sidebar_thumb">
         <span class="iconify color-dark-grey h1" data-icon="ic:baseline-lock" data-inline="false"></span>

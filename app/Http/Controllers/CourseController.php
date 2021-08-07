@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\UserCourses;
 use App\Models\Module;
 use App\Models\Material;
+use App\Models\Test;
+use App\Models\Question;
+use App\Models\Answer;
 use App\Models\UserComplection;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -19,10 +25,14 @@ class CourseController extends Controller
     public function show($id){
 
         $course = Course::where('id', $id)->first();
-
-        return view('user.course', [
-            'course' => $course
-        ]);
+        $avaliable = UserCourses::where([['user_id', Auth::user()->id],['course_id', $course->id]])->first();
+        if(!empty($avaliable)){
+            return view('user.course', [
+                'course' => $course
+            ]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /** Get JSON-foratted data of course by ID
@@ -90,10 +100,27 @@ class CourseController extends Controller
                 foreach ($modules as $module){
                     $materials = Material::where('module_id', $module->id);
                     foreach($materials as $material){
-
                         $usercomplection = UserComplection::where('material_id', $material->id);
                         $usercomplection->delete();
                         $material->delete();
+                    }
+
+                    $tests = Test::where('module_id', $module->id)->get();
+                    foreach($tests as $test){
+                        $questions = Question::where('test_id', $test->id)->get();
+
+                            foreach ($questions as $question){
+
+                                $answers = Answer::where('question_id', $question->id)->get();
+
+                                foreach ($answers as $answer){
+                                    $answer->delete();
+                                }
+
+                                $question->delete();
+                            }
+
+                        $test->delete();
                     }
                 }
 
@@ -102,6 +129,29 @@ class CourseController extends Controller
         $course->delete();
 
         return redirect()->back();
+    }
+
+    /** Get sidebar by ID
+     * @method DELETE
+     * @param request - ID of course
+     * @return HTTP_CODE
+    */
+    public function getModule(Request $request){
+
+        $module = Module::where('id', $request->id)->first();
+
+        return view('user.sidebar.module', [
+            'module' => $module
+        ]);
+    }
+
+    public function getTotal(Request $request){
+
+        $course = Course::where('id', $request->id)->first();
+
+        return view('user.sidebar.total', [
+            'course' => $course
+        ]);
     }
 
 }

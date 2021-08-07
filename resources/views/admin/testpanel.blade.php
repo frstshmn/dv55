@@ -5,7 +5,7 @@
 
     @section('content')
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
+            <a class="navbar-brand font-weight-bold text-shadow" href="{{ route('landing') }}"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,6 +80,7 @@
                     <form method="POST" action="/tests" autocomplete="off">
                         <input name="count" id="question_count" value="0" hidden required>
                         <input name="module_id" id="module_id" hidden required>
+
                         <div class="modal-body">
                             @csrf
 
@@ -87,6 +88,10 @@
                                 <label class="font-weight-bold">Time (in minutes)</label>
                                 <input type="text" placeholder="Test duration" name="time" class="glassmorphism-input-dark small w-100" required>
                             </div>
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1" name="duplicate">
+                                <label class="custom-control-label" for="customCheck1">Duplicate test</label>
+                              </div>
 
                             <div id="question_list"></div>
 

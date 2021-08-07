@@ -4,7 +4,7 @@
 
 @section('content')
     <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-        <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
+        <a class="navbar-brand font-weight-bold text-shadow" href="{{ route('landing') }}"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,10 +30,7 @@
                         <div class="neuro-card text-center p-5">
                             <img src="{{ URL::asset('public/images/logo_big.svg') }}" class="w-75 text-center d-flex justify-content-center mx-auto">
                             <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->course->title}}</h5>
-                            <h6 class="card-subtitle font-weight-bold mb-4 text-muted small">53% пройдено</h6>
-                            <p class="card-text text-justify mb-4 small">
-                                {{$course->course->description}}
-                            </p>
+                            <h6 class="card-subtitle font-weight-bold my-4 text-muted small">{{ $course->course->totalScore(Auth::user()->id) }}% пройдено</h6>
                             <a href="/courses/{{$course->course->id}}" class="card-link button py-2 shadow mx-auto text-white">Перейти до курсу</a>
                         </div>
                     </div>

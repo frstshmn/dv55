@@ -17,7 +17,7 @@
                     <p class="mb-5">Тепер можете переходити до наступної теми</p>
                 @endif
 
-                <a href="javascript:history.back()" class="shadow button background-red font-weight-bold">Повернутись до курсу</a>
+                <a href="/courses/{{$test->module->course->id}}" class="shadow button background-red font-weight-bold">Повернутись до курсу</a>
             </div>
         </div>
         <div class="row"></div>

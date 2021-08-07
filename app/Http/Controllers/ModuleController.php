@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Module;
 use App\Models\Material;
 use App\Models\UserComplection;
+use App\Models\Test;
+use App\Models\Question;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -89,6 +92,26 @@ class ModuleController extends Controller
                     $usercomplection->delete();
                     $material->delete();
                 }
+
+            $tests = Test::where('module_id', $module->id)->get();
+
+                foreach($tests as $test){
+                    $questions = Question::where('test_id', $test->id)->get();
+
+                        foreach ($questions as $question){
+
+                            $answers = Answer::where('question_id', $question->id)->get();
+
+                            foreach ($answers as $answer){
+                                $answer->delete();
+                            }
+
+                            $question->delete();
+                        }
+
+                    $test->delete();
+                }
+
 
 
 

@@ -5,7 +5,7 @@
 
     @section('content')
         <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-            <a class="navbar-brand font-weight-bold text-shadow" href="#"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
+            <a class="navbar-brand font-weight-bold text-shadow" href="{{ route('landing') }}"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,7 +16,7 @@
                         <a class="nav-link color-dark-grey">Courses</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link color-grey" href="/exams">Tests</a>
+                        <a class="nav-link color-grey" href="/tests">Tests</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link color-grey" href="/users">Users</a>
@@ -46,7 +46,7 @@
                                     </p>
                                     <div class="d-flex flex-row justify-content-around">
 
-                                        <a href="/courses/json/{{$course->id}}" class="button py-2">JSON</a>
+                                        {{-- <a href="/courses/json/{{$course->id}}" class="button py-2">JSON</a> --}}
 
                                         <button data-toggle="modal" data-target="#editCourseModal" data-id="{{$course->id}}" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button>
                                         <form method="POST" action="/courses">

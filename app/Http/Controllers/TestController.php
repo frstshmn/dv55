@@ -167,13 +167,20 @@ class TestController extends Controller
     public function delete(Request $request){
         $test = Test::where('id', $request->id)->first();
 
-            $questions = Question::where('test_id', $test->id);
+            $questions = Question::where('test_id', $test->id)->get();
 
                 foreach ($questions as $question){
+
+                    $answers = Answer::where('question_id', $question->id)->get();
+
+                    foreach ($answers as $answer){
+                        $answer->delete();
+                    }
+
                     $question->delete();
                 }
 
-            $questions->delete();
+
 
         $test->delete();
 

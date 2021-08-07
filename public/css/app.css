@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Inter", sans-serif !important;
 }
 *:focus {
   outline: 0 !important;
@@ -18,19 +17,112 @@ a:hover {
 
 body {
   scroll-behavior: smooth;
-  font-family: "Inter", sans-serif !important;
+  font-family: "Inter", sans-serif;
+}
+
+.background-rope {
+  background-image: url("/public/images/rope.png");
+  background-attachment: scroll;
+  background-size: cover;
+  background-color: #e0e0e0;
+}
+
+.background-people {
+  background-image: url("/public/images/people.png");
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: repeat;
+  background-color: #041E42;
+}
+
+.background-gradient {
+  background-image: url("/public//images/gradient.png");
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: repeat;
+  background-color: #041E42;
+}
+
+.progress-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+}
+
+.progress-bar {
+  background-color: white;
+  height: 3px;
+}
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.font-pt-serif {
+  font-family: "PT Serif", sans-serif !important;
 }
 
 .vh-100 {
   height: 100vh;
 }
 
+.vw-100 {
+  width: calc(100vw - 5px) !important;
+}
+
+.level-1 {
+  z-index: 100;
+}
+
+.level-2 {
+  z-index: 90;
+}
+
+.navbar {
+  transition: background-color 1s ease 0s;
+}
+
 .text-shadow {
   text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
+.inner-shadow {
+  box-shadow: inset 0px 0px 20px 0px #666;
+}
+
+.social-link {
+  transition: 0.5s;
+}
+
+.social-link.color-red:hover {
+  transform: translateY(-2px);
+  background-color: #A6192E !important;
+  color: white !important;
+}
+
+.social-link.color-blue:hover {
+  transform: translateY(-2px);
+  background-color: #7DA1C4 !important;
+  color: white !important;
+}
+
+.social-link.color-navy:hover {
+  transform: translateY(-2px);
+  background-color: #041E42 !important;
+  color: white !important;
+}
+
+.social-link.color-green:hover {
+  transform: translateY(-2px);
+  background-color: #33b133 !important;
+  color: white !important;
+}
+
 .rounded-corner {
   border-radius: 20px;
+}
+
+.rounded-corner-50 {
+  border-radius: 50px;
 }
 
 .z-index-99 {
@@ -136,12 +228,6 @@ body {
   box-shadow: 0px 5px 7px 0px #aaa;
 }
 
-.background-image {
-  background-image: url("/images/earphones.png");
-  background-size: 104% 120%;
-  background-position: center;
-}
-
 form img {
   width: 150px;
   height: 150px;
@@ -231,22 +317,6 @@ select:-webkit-autofill:focus {
 
 #sidebar_thumb {
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-}
-
-.pie {
-  position: relative;
-  width: 10em;
-  height: 10em;
-  border-radius: 50%;
-  background-color: #041E42;
-}
-.pie .pie-inner {
-  position: absolute;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-  background-color: #e0e0e0;
-  transform: scale(0.95);
 }
 
 .material, .test {

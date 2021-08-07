@@ -33,29 +33,35 @@ class Test extends Model
         return $answered;
     }
 
-    public function isCompleted(){
+    public function isCompleted($user_id){
         $correct_answers = 0;
 
-        $test = Test::where('id', $this->id)->first();
+        // $test = Test::where('id', $this->id)->first();
+        // $user = User::where('id', Auth::user()->id)->first();
         $questions = Question::where('test_id', $this->id)->get();
-        $user = User::where('id', Auth::user()->id)->first();
 
-        foreach($questions as $question){
-            $answer = Answer::where([
-                ['user_id', '=', Auth::user()->id],
-                ['question_id', '=', $question->id]
-            ])->first();
+        if($questions->count() <= 0){
+            return false;
+        } else {
 
-            if($question->correct_answer == $answer->answer){
-                $correct_answers++;
+            foreach($questions as $question){
+                $answer = Answer::where([
+                    ['user_id', $user_id],
+                    ['question_id', $question->id]
+                ])->first();
+
+                if(!empty($answer)){
+                    if($question->correct_answer == $answer->answer){
+                        $correct_answers++;
+                    }
+                }
+            }
+
+            if (($correct_answers*100)/$questions->count() >= 70){
+                return true;
+            } else {
+                return false;
             }
         }
-
-        if (($correct_answers*100)/$questions->count() >= 70){
-            return true;
-        } else {
-            return false;
-        }
-
     }
 }
