@@ -76,17 +76,19 @@ $(document).on('click', "button[data-target='#editUserModal']", function(){
 });
 
 $(document).on('click', ".delete-course", function(){
-    $.ajax({
-        url: '/usercourses',
-        type: 'DELETE',
-        data: {
-            user_id: $(this).data("user"),
-            course_id: $(this).data("course")
-        },
-        success: function(result) {
-            location.href = location.href;
-        }
-    });
+    if(confirm('Do you really want to delete?')){
+        $.ajax({
+            url: '/usercourses',
+            type: 'DELETE',
+            data: {
+                user_id: $(this).data("user"),
+                course_id: $(this).data("course")
+            },
+            success: function(result) {
+                location.href = location.href;
+            }
+        });
+    }
 });
 
 

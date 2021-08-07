@@ -49,7 +49,7 @@
                                         {{-- <a href="/courses/json/{{$course->id}}" class="button py-2">JSON</a> --}}
 
                                         <button data-toggle="modal" data-target="#editCourseModal" data-id="{{$course->id}}" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button>
-                                        <form method="POST" action="/courses">
+                                        <form method="POST" action="/courses" onsubmit="return confirm('Do you really want to delete?');">
                                             @csrf @method('DELETE')
                                             <input name="id" value="{{$course->id}}" required hidden>
                                             <button type="submit" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:trash-alt" data-inline="false"></span></button>
@@ -66,7 +66,7 @@
                                             <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
                                                 <button data-id="{{$module->id}}" class="show-materials small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Show materials</button><br>
                                                 <button data-toggle="modal" data-target="#editModuleModal" data-id="{{$module->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
-                                                <form method="POST" action="/modules">
+                                                <form method="POST" action="/modules" onsubmit="return confirm('Do you really want to delete?');">
                                                     @csrf @method('DELETE')
                                                     <input name="id" value="{{$module->id}}" required hidden>
                                                     <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
@@ -218,7 +218,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="font-weight-bold">Material code</label>
-                                            <textarea id="code" name="code" placeholder="Insert your text or page code here" class="glassmorphism-input-dark small w-100 border-0 rounded-corner p-3" required></textarea>
+                                            <textarea rows="15" id="code" name="code" placeholder="Insert your text or page code here" class="glassmorphism-input-dark small w-100 border-0 rounded-corner p-3" required></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -248,11 +248,11 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="font-weight-bold">Material code</label>
-                                            <textarea id="code" name="code" placeholder="Insert your text or page code here" class="glassmorphism-input-dark small w-100 border-0 rounded-corner p-3" required></textarea>
+                                            <textarea rows="15" id="code" name="code" placeholder="Insert your text or page code here" class="glassmorphism-input-dark small w-100 border-0 rounded-corner p-3" required></textarea>
                                         </div>
                                     </div>
                                 </form>
-                                <form method="POST" action="/materials" id="delete_material">
+                                <form method="POST" action="/materials" id="delete_material" onsubmit="return confirm('Do you really want to delete?');">
                                     @csrf @method('DELETE')
                                     <input name="id" id="identifier"required hidden>
                                 </form>

@@ -48,7 +48,7 @@
                                         <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                         <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
                                             <button data-toggle="modal" data-target="#editUserModal" data-id="{{$user->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
-                                            <form method="POST" action="/users">
+                                            <form method="POST" action="/users" onsubmit="return confirm('Do you really want to delete?');">
                                                 @csrf @method('DELETE')
                                                 <input name="id" value="{{$user->id}}" required hidden>
                                                 <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
@@ -68,16 +68,21 @@
                                 <div class="neuro-card py-3 my-3 px-4 d-flex flex-row w-100 justify-content-between align-items-center">
                                     <div class="text-left">
                                         {{$user->name}}
+                                        @if ($user->id == Auth::user()->id)
+                                            | <span class="font-weight-bold color-red">You</span>
+                                        @endif
                                         <div class="small color-grey font-weight-bold">{{$user->email}}</div>
                                     </div>
                                     <div class="dropdown">
                                         <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                         <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
                                             <button data-toggle="modal" data-target="#editUserModal" data-id="{{$user->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
-                                            <form method="POST" action="/users">
+                                            <form method="POST" action="/users" onsubmit="return confirm('Do you really want to delete?');">
                                                 @csrf @method('DELETE')
                                                 <input name="id" value="{{$user->id}}" required hidden>
-                                                <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
+                                                @if ($user->id != Auth::user()->id)
+                                                    <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
+                                                @endif
                                             </form>
                                         </div>
                                     </div>

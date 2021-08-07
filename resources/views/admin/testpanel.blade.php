@@ -47,7 +47,7 @@
                                                         <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                         <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
                                                             <button data-toggle="modal" data-target="#editTestModal" data-test="{{$test->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
-                                                            <form method="POST" action="/tests">
+                                                            <form method="POST" action="/tests" onsubmit="return confirm('Do you really want to delete?');">
                                                                 @csrf @method('DELETE')
                                                                 <input name="id" value="{{$test->id}}" required hidden>
                                                                 <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
