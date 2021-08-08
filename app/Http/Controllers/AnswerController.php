@@ -54,24 +54,27 @@ class AnswerController extends Controller
 
         $test = Test::where('id', $request->test_id)->first();
         $questions = Question::where('test_id', $request->test_id)->get();
-        $user = User::where('id', $request->user_id)->first();
-
-        foreach($questions as $question){
-            $answer = Answer::where([
-                ['user_id', '=', $request->user_id],
-                ['question_id', '=', $question->id]
-            ])->first();
-
-            if($question->correct_answer == $answer->answer){
-                $correct_answers++;
-            }
+        if(Auth::user()->is_admin){
+            $user = User::where('id', $request->user_id)->first();
+        } else {
+            $user = Auth::user();
         }
+            foreach($questions as $question){
+                $answer = Answer::where([
+                    ['user_id', '=', $user->id],
+                    ['question_id', '=', $question->id]
+                ])->first();
 
-        return view('user.results', [
-            'result' => round((($correct_answers*100)/$questions->count()), 2),
-            'answers' => Answer::where('user_id', $request->user_id)->get(),
-            'user' => $user,
-            'test' => $test
-        ]);
+                if($question->correct_answer == $answer->answer){
+                    $correct_answers++;
+                }
+            }
+
+            return view('user.results', [
+                'result' => round((($correct_answers*100)/$questions->count()), 2),
+                'user' => $user,
+                'test' => $test
+            ]);
+
     }
 }

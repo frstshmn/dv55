@@ -22,4 +22,28 @@
         </div>
         <div class="row"></div>
     </div>
+    <div class="container pb-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <table class="mx-auto">
+                    <tr>
+                        <th class="py-md-3 px-md-5 p-3 text-center">Запитання</th>
+                        <th class="py-md-3 px-md-5 p-3 text-center">Відповідь користувача</th>
+                        <th class="py-md-3 px-md-5 p-3 text-center">Правильна відповідь</th>
+                    </tr>
+                        @foreach ($test->questions as $question)
+                        <tr @if ($question->userAnswer($user->id) == $question->correctAnswer())
+                            class="bg-success text-white"
+                            @else
+                            class="bg-danger text-white"
+                        @endif>
+                            <td class="py-md-3 px-md-5 p-3 text-center">{{$question->question}}</td>
+                            <td class="py-md-3 px-md-5 p-3 text-center">{{$question->userAnswer($user->id)}}</td>
+                            <td class="py-md-3 px-md-5 p-3 text-center">{{$question->correctAnswer()}}</td>
+                        </tr>
+                        @endforeach
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection

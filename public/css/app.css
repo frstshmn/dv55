@@ -36,7 +36,7 @@ body {
 }
 
 .background-gradient {
-  background-image: url("/public//images/gradient.png");
+  background-image: url("/images/gradient.png");
   background-attachment: scroll;
   background-size: cover;
   background-repeat: repeat;
@@ -175,6 +175,14 @@ body {
 
 .background-light-grey {
   background-color: #e0e0e0 !important;
+}
+
+.color-green {
+  color: #33b133 !important;
+}
+
+.background-green {
+  background-color: #33b133 !important;
 }
 
 .button {
@@ -344,4 +352,9 @@ select:-webkit-autofill:focus {
   position: absolute;
   -webkit-animation: loading 1s infinite;
           animation: loading 1s infinite;
+}
+
+#modules, #module_materials {
+  height: 25em;
+  overflow-y: scroll;
 }

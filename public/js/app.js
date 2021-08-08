@@ -137,7 +137,19 @@ $(document).on("click", ".next-test", function () {
   });
 });
 $('.test').on("click", function () {
+  $('#material_content').attr({
+    'style': 'display: none!important'
+  });
+  $('#material_content_loader').attr({
+    'style': 'display: flex!important'
+  });
   $.get("/tests/" + $(this).data("id"), function (data) {
+    $('#material_content').attr({
+      'style': 'display: block!important'
+    });
+    $('#material_content_loader').attr({
+      'style': 'display: none!important'
+    });
     $("#material_content").html(data);
   });
 });

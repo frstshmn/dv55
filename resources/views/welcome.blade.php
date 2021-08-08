@@ -339,6 +339,12 @@
                             Facebook
                         </div>
                     </a>
+                    <a href="https://www.linkedin.com/company/75043983/admin/" targer="_blank" class="bg-white rounded-corner p-5 m-4 d-flex flex-column social-link color-blue">
+                        <span class="iconify mx-auto h1" data-icon="bi:telegram" data-inline="false"></span>
+                        <div class="text-center">
+                            Telegram
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

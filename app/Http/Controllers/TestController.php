@@ -29,21 +29,27 @@ class TestController extends Controller
 
         if($answered){
             $correct_answers = 0;
-            foreach($questions as $question){
-                $answer = Answer::where([
-                    ['user_id', '=', Auth::user()->id],
-                    ['question_id', '=', $question->id]
-                ])->first();
 
-                if($question->correct_answer == $answer->answer){
-                    $correct_answers++;
+            $test = Test::where('id', $id)->first();
+            $questions = Question::where('test_id', $id)->get();
+            $user = Auth::user();
+                foreach($questions as $question){
+                    $answer = Answer::where([
+                        ['user_id', '=', $user->id],
+                        ['question_id', '=', $question->id]
+                    ])->first();
+
+                    if($question->correct_answer == $answer->answer){
+                        $correct_answers++;
+                    }
                 }
-            }
 
-            return view('user.resultsidebar', [
-                'result' => round((($correct_answers*100)/$questions->count()), 2)
-            ]);
-        }
+                return view('user.resultsidebar', [
+                    'result' => round((($correct_answers*100)/$questions->count()), 2),
+                    'user' => $user,
+                    'test' => $test
+                ]);
+            }
         else{
             return view('user.test', [
                 'test' => $test

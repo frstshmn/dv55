@@ -46,12 +46,48 @@
                                                     <div class="dropdown">
                                                         <button class="button dropdown-toggle py-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                         <div class="dropdown-menu border-0 text-center mt-1 rounded-corner">
+                                                            <button type="button" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto" data-toggle="modal" data-target="#test{{$test->id}}Progress">Progress</button><br>
                                                             <button data-toggle="modal" data-target="#editTestModal" data-test="{{$test->id}}" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Edit</button><br>
                                                             <form method="POST" action="/tests" onsubmit="return confirm('Do you really want to delete?');">
                                                                 @csrf @method('DELETE')
                                                                 <input name="id" value="{{$test->id}}" required hidden>
                                                                 <button type="submit" class="small bg-white card-link border-0 text-center align-middle my-2 mx-auto">Delete</button><br>
                                                             </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade px-5" id="test{{$test->id}}Progress" tabindex="-1" role="dialog" aria-labelledby="test{{$test->id}}ProgressLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content border-0 neuro-card shadow p-5">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="test{{$test->id}}ProgressLabel">Progress of Test {{$i}}</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <table>
+                                                                    <tr class='table-filters'>
+                                                                        <td class="p-1">
+                                                                            <input placeholder="Name" class="w-100 small glassmorphism-input-dark" type="text"/>
+                                                                        </td>
+                                                                        <td class="p-1">
+                                                                            <input placeholder="Result" class="w-100 small glassmorphism-input-dark" type="text"/>
+                                                                        </td>
+                                                                    </tr>
+                                                                @foreach($users as $user)
+                                                                <tr class="table-data color-dark-grey">
+                                                                    <td><p class="h6 text-center">{{$user->name}}</p></td>
+                                                                    <td class="text-center"><p class="font-weight-bold">{{$test->userResult($user->id)}}%</p></td>
+                                                                </tr>
+                                                                @endforeach
+
+                                                            </table>
+                                                            </div>
+                                                            <div class="modal-footer">
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

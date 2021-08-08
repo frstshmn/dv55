@@ -46,7 +46,9 @@
                                     </p>
                                     <div class="d-flex flex-row justify-content-around">
 
-                                        {{-- <a href="/courses/json/{{$course->id}}" class="button py-2">JSON</a> --}}
+                                        <button type="button" class="button py-2" data-toggle="modal" data-target="#course{{$course->id}}Progress">
+                                            Progress
+                                        </button>
 
                                         <button data-toggle="modal" data-target="#editCourseModal" data-id="{{$course->id}}" class="card-link button py-2 px-4 shadow text-white align-middle"><span class="iconify align-middle mb-1" data-icon="fa-regular:edit" data-inline="false"></span></button>
                                         <form method="POST" action="/courses" onsubmit="return confirm('Do you really want to delete?');">
@@ -56,8 +58,8 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5">
-                                    <p class="font-weight-bold text-center">Modules</p>
+                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5 px-5" id="modules">
+                                    <p class="font-weight-bold text-center mb-5">Modules</p>
                                     @foreach ($course->modules as $module)
                                     <div class="neuro-card py-3 my-3 px-4 d-flex flex-row justify-content-between align-items-center">
                                         <div class="small text-overflow-ellipsis">{{$module->title}}</div>
@@ -77,8 +79,43 @@
                                     @endforeach
                                     <button data-toggle="modal" data-target="#addModuleModal" data-id="{{$course->id}}" class="card-link button py-2 shadow mx-auto text-white align-middle">Create new module <span class="iconify align-middle" data-icon="fa-solid:plus" data-inline="false"></span></button>
                                 </div>
-                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5" id="module_materials" data-module="0">
+                                <div class="col-md-4 col-xs-12 mt-md-0 mt-5 px-5" id="module_materials" data-module="0">
                                     <p class="font-weight-bold text-center" id="module_name">Materials</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade px-5" id="course{{$course->id}}Progress" tabindex="-1" role="dialog" aria-labelledby="course{{$course->id}}ProgressLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content border-0 neuro-card shadow p-5">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="course{{$course->id}}ProgressLabel">Progress of "{{$course->title}}"</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table>
+                                            <tr class='table-filters'>
+                                                <td class="p-1">
+                                                    <input placeholder="Name" class="w-100 small glassmorphism-input-dark" type="text"/>
+                                                </td>
+                                                <td class="p-1">
+                                                    <input placeholder="Result" class="w-100 small glassmorphism-input-dark" type="text"/>
+                                                </td>
+                                            </tr>
+                                        @foreach($users as $user)
+                                        <tr class="table-data color-dark-grey">
+                                            <td><p class="h6 text-left">{{$user->name}}</p></td>
+                                            <td class="text-center"><p class="font-weight-bold">{{$course->totalScore($user->id)}}%</p></td>
+                                        </tr>
+                                        @endforeach
+
+                                    </table>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -317,3 +317,7 @@ select:-webkit-autofill:focus {
     }
 }
 
+#modules, #module_materials{
+    height: 25em;
+    overflow-y: scroll;
+}

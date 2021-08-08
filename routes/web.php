@@ -49,8 +49,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Admin dashboard
     Route::get('/admin', function () {
+        $users = User::get();
         $courses = Course::get();
         return view('admin.adminpanel',[
+            'users' => $users,
             'courses' => $courses,
         ]);
     });

@@ -64,4 +64,30 @@ class Test extends Model
             }
         }
     }
+
+    public function userResult($user_id){
+        $correct_answers = 0;
+
+        $questions = Question::where('test_id', $this->id)->get();
+
+        if($questions->count() <= 0){
+            return 0;
+        } else {
+
+            foreach($questions as $question){
+                $answer = Answer::where([
+                    ['user_id', $user_id],
+                    ['question_id', $question->id]
+                ])->first();
+
+                if(!empty($answer)){
+                    if($question->correct_answer == $answer->answer){
+                        $correct_answers++;
+                    }
+                }
+            }
+
+            return ($correct_answers*100)/$questions->count();
+        }
+    }
 }

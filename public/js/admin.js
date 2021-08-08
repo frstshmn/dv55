@@ -4,6 +4,31 @@ $.ajaxSetup({
     }
 });
 
+$('.table-filters input').on('input', function () {
+    filterTable($(this).parents('table'));
+});
+
+function filterTable($table) {
+    var $filters = $table.find('.table-filters td');
+    var $rows = $table.find('.table-data');
+    $rows.each(function (rowIndex) {
+        var valid = true;
+        $(this).find('td').each(function (colIndex) {
+            if ($filters.eq(colIndex).find('input').val()) {
+                if ($(this).html().toLowerCase().indexOf(
+                $filters.eq(colIndex).find('input').val().toLowerCase()) == -1) {
+                    valid = valid && false;
+                }
+            }
+        });
+        if (valid === true) {
+            $(this).css('display', '');
+        } else {
+            $(this).css('display', 'none');
+        }
+    });
+}
+
 $("button[data-target='#editCourseModal']").on('click', function(){
     $.get("/courses/json/" + $(this).data("id"), function( data ) {
         $('#editCourseModal #identifier').val(JSON.parse(data).id);
@@ -31,7 +56,7 @@ $(".show-materials").on('click', function(){
     let id = $(this).data("id");
     $.get("/modules/json/" + id , function( data ) {
         $('.material-loading').remove();
-        $('#module_materials').append('<p class="font-weight-bold text-center" id="module_name">Materials of '+ JSON.parse(data).title +'</p>').append('<span class="iconify display-1 material-loading" data-icon="eos-icons:three-dots-loading" data-inline="false"></span>');
+        $('#module_materials').append('<p class="font-weight-bold text-center mb-5" id="module_name">Materials of '+ JSON.parse(data).title +'</p>').append('<span class="iconify display-1 material-loading" data-icon="eos-icons:three-dots-loading" data-inline="false"></span>');
         $.get("modules/"+ id +"/materials/", function( data ) {
             $('.material-loading').remove();
             $.each(JSON.parse(data), function(index, element){
