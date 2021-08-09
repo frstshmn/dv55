@@ -260,7 +260,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="font-weight-bold">Material code</label>
-                                <textarea rows="15" id="add_code" name="code" placeholder="Insert your text or page code here" class="tinymce glassmorphism-input-dark small w-100 border-0 rounded-corner p-3"></textarea>
+                                <textarea rows="15" id="code" name="code" placeholder="Insert your text or page code here" class="glassmorphism-input-dark small w-100 border-0 rounded-corner p-3" required></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -290,7 +290,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="font-weight-bold">Material code</label>
-                                <textarea rows="15" id="edit_code" name="code" placeholder="Insert your text or page code here" class="tinymce glassmorphism-input-dark small w-100 border-0 rounded-corner p-3"></textarea>
+                                <textarea rows="15" id="code" name="code" placeholder="Insert your text or page code here" class="glassmorphism-input-dark small w-100 border-0 rounded-corner p-3" required></textarea>
                             </div>
                         </div>
                     </form>
