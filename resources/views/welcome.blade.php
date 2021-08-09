@@ -290,15 +290,19 @@
             <h4 class="col-12 h3 my-5 text-center font-weight-bold font-pt-serif text-shadow">Зв'яжіться з нами</h4>
             <div class="col-md-4 offset-md-1 col-xs-12 mb-5 pb-5">
                 <div class="neuro-card p-5">
-                    <form method="POST" autocomplete="off">
+                    <form method="POST" autocomplete="off" action="/sendmail">
                         <h6 class="font-weight-bold text-center pt-3">Є питання - напишіть нам</h6>
                         @csrf
-                        <div class="mb-5">
+                        <div class="mb-3">
+                            <input type="text" placeholder="Ваше ім'я" name="name" class="glassmorphism-input-dark small w-100" required>
+                        </div>
+
+                        <div class="mb-4">
                             <input type="text" placeholder="Ваша електронна пошта" name="email" class="glassmorphism-input-dark small w-100" required>
                         </div>
 
                         <div class="mb-5">
-                            <textarea name="" class="small background-light-grey color-grey shadow rounded-corner p-3 border-0 w-100" placeholder="Ваше повідомлення" rows="5" required></textarea>
+                            <textarea name="message" class="small background-light-grey color-dark-grey shadow rounded-corner p-3 border-0 w-100" placeholder="Ваше повідомлення" rows="5" required></textarea>
                         </div>
 
                         <div class="mx-auto">
@@ -339,7 +343,7 @@
                             Facebook
                         </div>
                     </a>
-                    <a href="https://www.linkedin.com/company/75043983/admin/" targer="_blank" class="bg-white rounded-corner p-5 m-4 d-flex flex-column social-link color-blue">
+                    <a href="https://t.me/Division55" targer="_blank" class="bg-white rounded-corner p-5 m-4 d-flex flex-column social-link color-blue">
                         <span class="iconify mx-auto h1" data-icon="bi:telegram" data-inline="false"></span>
                         <div class="text-center">
                             Telegram

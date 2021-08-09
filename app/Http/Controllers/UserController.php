@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Feedback;
+
 use App\Models\User;
 use App\Models\UserCourses;
 use App\Models\Course;
 use App\Models\Answer;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Validation\Rules;
 
@@ -110,5 +113,18 @@ class UserController extends Controller
         $usercourses->delete();
 
         return redirect()->back();
+    }
+
+    public function sendMail(Request $request) {
+        $name = $request->name;
+        $email = $request->email;
+        $content = $request->message;
+
+        Mail::send('layouts.feedback', ['name' => $name, 'email' => $email, 'content' => $content], function ($message) {
+            $message->to('theskaters75@gmail.com')->subject('DV55');
+        });
+
+        return redirect()->back();
+
     }
 }

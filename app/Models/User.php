@@ -47,16 +47,14 @@ class User extends Authenticatable
 
     }
 
-    public function courseProgress($course_id){
+    public function isRegistered($course_id){
 
-        $modules = Module::where('course_id', $course_id)->first();
-        $material_count = '';
-        foreach($modules as $module){
-            $material_count .= $module->id;
-            //$materials = Material::where('module_id', $module->id)->first();
-            //$material_count += $materials->count();
+        $uc = UserCourses::where([['course_id', $course_id],['user_id', $this->id]])->first();
+
+        if(!empty($uc)){
+            return true;
+        } else{
+            return false;
         }
-
-        return $material_count;
     }
 }

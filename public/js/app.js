@@ -47,7 +47,7 @@ function getSidebarTotal() {
   });
 }
 
-$('.material').on("click", function () {
+$(document).on("click", ".material", function () {
   $('#material_content').attr({
     'style': 'display: none!important'
   });

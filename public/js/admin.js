@@ -4,6 +4,11 @@ $.ajaxSetup({
     }
 });
 
+tinymce.init({
+    selector: 'textarea.tinymce',
+    plugins: 'table print textcolor colorpicker anchor link searchreplace media emoticons lists visualblocks preview wordcount hr contextmenu'
+});
+
 $('.table-filters input').on('input', function () {
     filterTable($(this).parents('table'));
 });
@@ -77,7 +82,7 @@ $(document).on('click', "button[data-target='#editMaterialModal']", function(){
     $.get("/materials/json/" + $(this).data("id"), function( data ) {
         $('#edit_material #identifier').val(JSON.parse(data).id);
         $('#edit_material #title').val(JSON.parse(data).title);
-        $('#edit_material #code').val(JSON.parse(data).code);
+        tinymce.get("edit_code").setContent(JSON.parse(data).code);
         $('#delete_material #identifier').val(JSON.parse(data).id);
     });
 });

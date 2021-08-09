@@ -39,7 +39,7 @@ body {
 	background-color: #041E42;
 }
 .background-gradient {
-	background-image: url('/images/gradient.png');
+	background-image: url('/public/images/gradient.png');
 	background-attachment: scroll;
 	background-size: cover;
 	background-repeat: repeat;
@@ -320,4 +320,49 @@ select:-webkit-autofill:focus {
 #modules, #module_materials{
     height: 25em;
     overflow-y: scroll;
+}
+
+.custom-control-input:not(:disabled):active~.custom-control-label::before{
+    background-color: $red !important;
+    border-color: $red !important;
+}
+
+@media (min-width:320px), (min-width:481px), (min-width:641px), (min-width:961px)  {
+    #sidebar, #sidebar_thumb {
+        transition: .5s;
+        width: 50vw;
+        &.active{
+            transform: translateX(calc(-100% - 1em));
+            &.neuro-card{
+                box-shadow: 0!important;
+            }
+        }
+    }
+
+    .show-menu{
+        transition:.5s;
+        top: 1em;
+        left: 1em;
+        position: absolute;
+        height: 3em;
+        width: 3em;
+
+        &:hover{
+            color:white;
+            background: #041e42;
+            background: linear-gradient(155deg, rgba(255,230,117,1) 0%, rgba(166,25,46,1) 33%, rgba(4,30,66,1) 67%, rgba(125,161,196,1) 100%);
+        }
+    }
+}
+@media (min-width:481px)  {
+    #sidebar, #sidebar_thumb {
+        transition: .5s;
+        width: 40vw;
+    }
+}
+@media (min-width:641px), (min-width:765px)  {
+    #sidebar, #sidebar_thumb {
+        transition: .5s;
+        width: 30vw;
+    }
 }

@@ -40,7 +40,7 @@ function getSidebarTotal(){
     });
 }
 
-$('.material').on("click", function () {
+$(document).on("click", ".material", function () {
     $('#material_content').attr({'style': 'display: none!important'});
     $('#material_content_loader').attr({'style': 'display: flex!important'});
     $.get("/materials/" + $(this).data("id"), function( data ) {

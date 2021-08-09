@@ -36,7 +36,7 @@ body {
 }
 
 .background-gradient {
-  background-image: url("/images/gradient.png");
+  background-image: url("/public/images/gradient.png");
   background-attachment: scroll;
   background-size: cover;
   background-repeat: repeat;
@@ -357,4 +357,48 @@ select:-webkit-autofill:focus {
 #modules, #module_materials {
   height: 25em;
   overflow-y: scroll;
+}
+
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+  background-color: #A6192E !important;
+  border-color: #A6192E !important;
+}
+
+@media (min-width: 320px), (min-width: 481px), (min-width: 641px), (min-width: 961px) {
+  #sidebar, #sidebar_thumb {
+    transition: 0.5s;
+    width: 50vw;
+  }
+  #sidebar.active, #sidebar_thumb.active {
+    transform: translateX(calc(-100% - 1em));
+  }
+  #sidebar.active.neuro-card, #sidebar_thumb.active.neuro-card {
+    box-shadow: 0 !important;
+  }
+
+  .show-menu {
+    transition: 0.5s;
+    top: 1em;
+    left: 1em;
+    position: absolute;
+    height: 3em;
+    width: 3em;
+  }
+  .show-menu:hover {
+    color: white;
+    background: #041e42;
+    background: linear-gradient(155deg, #ffe675 0%, #a6192e 33%, #041e42 67%, #7da1c4 100%);
+  }
+}
+@media (min-width: 481px) {
+  #sidebar, #sidebar_thumb {
+    transition: 0.5s;
+    width: 40vw;
+  }
+}
+@media (min-width: 641px), (min-width: 765px) {
+  #sidebar, #sidebar_thumb {
+    transition: 0.5s;
+    width: 30vw;
+  }
 }

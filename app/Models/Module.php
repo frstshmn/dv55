@@ -23,4 +23,18 @@ class Module extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function allMaterialsChecked(){
+        $materials = Material::where('module_id', $this->id)->get();
+
+        $checked = true;
+
+        foreach($materials as $material){
+            if(!$material->isChecked()){
+                $checked = false;
+            }
+        }
+
+        return $checked;
+    }
 }

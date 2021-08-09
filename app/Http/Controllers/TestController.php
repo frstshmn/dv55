@@ -103,7 +103,38 @@ class TestController extends Controller
             $question->save();
         }
 
+        if($request->duplicate == 'on'){
+            $test = new Test();
+            $test->time = $request->time;
+            $test->module_id = $request->module_id;
+            $test->save();
+
+            for ($i = 1; $i <= $request->count; $i++) {
+                $question = new Question();
+
+                $q = 'question_'.$i;
+                $c = 'correct_answer_'.$i;
+
+                $v1 = 'variant_1_'.$i;
+                $v2 = 'variant_2_'.$i;
+                $v3 = 'variant_3_'.$i;
+                $v4 = 'variant_4_'.$i;
+
+                $question->question = $request->{$q};
+                $question->image_path = 'none';
+                $question->correct_answer = $request->{$c};
+                $question->v_1 = $request->{$v1};
+                $question->v_2 = $request->{$v2};
+                $question->v_3 = $request->{$v3};
+                $question->v_4 = $request->{$v4};
+
+                $question->test_id = $test->id;
+                $question->save();
+            }
+        }
+
         return redirect()->back();
+        // return dd($request);
     }
 
     public function update(Request $request){

@@ -20,12 +20,12 @@ class Test extends Model
         return $this->belongsTo(Module::class);
     }
 
-    public function isAnswered(){
+    public function isAnswered($user_id){
         $test = Test::where('id', $this->id)->first();
         $questions = Question::where('test_id', $test->id)->get();
         $answered = false;
         foreach ($questions as $question) {
-            if(!empty(Answer::where([['question_id', $question->id],['user_id', Auth::user()->id]])->first())){
+            if(!empty(Answer::where([['question_id', $question->id],['user_id', $user_id]])->first())){
                 $answered = true;
             }
         }

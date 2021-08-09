@@ -32,6 +32,7 @@
             <div class="container">
                 <div class="row w-100 m-0">
                     @foreach ($courses as $course)
+                    @if (Auth::user()->isRegistered($course->id))
                         <div class="neuro-card col-12 p-5 my-5">
                             <h5 class="card-title text-center mb-5 font-weight-bold">{{$course->title}}</h5>
                             <div class="row justify-content-around">
@@ -58,7 +59,7 @@
                                                 </div>
 
                                                 <div class="modal fade px-5" id="test{{$test->id}}Progress" tabindex="-1" role="dialog" aria-labelledby="test{{$test->id}}ProgressLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                                         <div class="modal-content border-0 neuro-card shadow p-5">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="test{{$test->id}}ProgressLabel">Progress of Test {{$i}}</h5>
@@ -67,7 +68,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <table>
+                                                                <table class="w-100">
                                                                     <tr class='table-filters'>
                                                                         <td class="p-1">
                                                                             <input placeholder="Name" class="w-100 small glassmorphism-input-dark" type="text"/>
@@ -76,14 +77,21 @@
                                                                             <input placeholder="Result" class="w-100 small glassmorphism-input-dark" type="text"/>
                                                                         </td>
                                                                     </tr>
-                                                                @foreach($users as $user)
-                                                                <tr class="table-data color-dark-grey">
-                                                                    <td><p class="h6 text-center">{{$user->name}}</p></td>
-                                                                    <td class="text-center"><p class="font-weight-bold">{{$test->userResult($user->id)}}%</p></td>
-                                                                </tr>
-                                                                @endforeach
-
-                                                            </table>
+                                                                    @foreach($users as $user)
+                                                                        @if ($user->isRegistered($course->id))
+                                                                            <tr class="table-data color-dark-grey text-center border border-top-0 border-left-0 border-right-0">
+                                                                                <td class="py-3"><p class="h6 my-auto">{{$user->name}}</p></td>
+                                                                                @if ($test->isAnswered($user->id))
+                                                                                    <td class="py-3"><p class="font-weight-bold my-auto">{{$test->userResult($user->id)}}%</p></td>
+                                                                                    <td class="py-3"><a class="small color-red my-auto" href="/results?user_id={{$user->id}}&test_id={{$test->id}}">See answers</a></td>
+                                                                                @else
+                                                                                    <td class="py-3"><p class="font-weight-bold text-danger my-auto">Not answered</p></td>
+                                                                                    <td class="py-3"><a class="text-muted small my-auto">See answers</a></td>
+                                                                                @endif
+                                                                            </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </table>
                                                             </div>
                                                             <div class="modal-footer">
 
@@ -99,13 +107,14 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
         </div>
 
         <div class="modal fade" id="addTestModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content border-0 neuro-card shadow p-5">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addTestModalLabel">Add new test</h5>
@@ -125,7 +134,7 @@
                                 <input type="text" placeholder="Test duration" name="time" class="glassmorphism-input-dark small w-100" required>
                             </div>
                             <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1" name="duplicate">
+                                <input type="checkbox" class="custom-control-input background-red" id="customCheck1" name="duplicate">
                                 <label class="custom-control-label" for="customCheck1">Duplicate test</label>
                               </div>
 
@@ -143,7 +152,7 @@
         </div>
 
         <div class="modal fade" id="editTestModal" tabindex="-1" role="dialog" aria-labelledby="editTestModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content border-0 neuro-card shadow p-5">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editTestModalLabel">Add new test</h5>
@@ -177,7 +186,7 @@
         </div>
     @endsection
     @section('additional_scripts')
-        <script src="{{ URL::asset('public/js/admin.js') }}"></script>
+        <script src="{{ URL::asset('js/admin.js') }}"></script>
     @endsection
 @else
     @php

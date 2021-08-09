@@ -7,33 +7,36 @@
         @endif
     @endforeach
 
-    @php $i = 1; @endphp
-    @foreach ($module->tests as $test)
-        @if ($i > 1)
-            @if ($test->isAnswered())
-                @if ($test->isCompleted())
-                    <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
-                    @break
+    @if ($module->allMaterialsChecked())
+        @php $i = 1; @endphp
+        @foreach ($module->tests as $test)
+            @if ($i > 1)
+                @if ($test->isAnswered(Auth::user()->id))
+                    @if ($test->isCompleted(Auth::user()->id))
+                        <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                        @break
+                    @else
+                        <li class="test text-overflow-ellipsis text-danger" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                    @endif
                 @else
-                    <li class="test text-overflow-ellipsis text-danger" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
+                    @break
                 @endif
             @else
-                <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Additional test</span></li>
-                @break
-            @endif
-        @else
-            @if ($test->isAnswered())
-                @if ($test->isCompleted())
-                    <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
-                    @break
+                @if ($test->isAnswered(Auth::user()->id))
+                    @if ($test->isCompleted(Auth::user()->id))
+                        <li class="test text-overflow-ellipsis text-success" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                        @break
+                    @else
+                        <li class="test text-overflow-ellipsis text-danger" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                    @endif
                 @else
-                    <li class="test text-overflow-ellipsis text-danger" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                    <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
+                    @break
                 @endif
-            @else
-                <li class="test text-overflow-ellipsis" data-id="{{$test->id}}"><span class="iconify h5 my-2 align-middle" data-icon="heroicons-outline:clipboard-check" data-inline="false"></span> <span class="small">Test</span></li>
-                @break
             @endif
-        @endif
-        @php $i++; @endphp
-    @endforeach
+            @php $i++; @endphp
+        @endforeach
+    @endif
+
 </ul>

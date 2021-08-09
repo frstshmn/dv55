@@ -26,6 +26,8 @@ Route::get('/', function () {
     ]);
 })->name('landing');
 
+Route::post('/sendmail', 'App\Http\Controllers\UserController@sendMail');
+
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
