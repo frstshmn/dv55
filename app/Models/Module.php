@@ -11,7 +11,7 @@ class Module extends Model
     use HasFactory;
     public function materials()
     {
-        return $this->hasMany(Material::class);
+        return $this->hasMany(Material::class)->orderBy('order');
     }
 
     public function tests()

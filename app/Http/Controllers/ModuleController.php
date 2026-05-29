@@ -71,6 +71,13 @@ class ModuleController extends Controller
         return redirect()->back();
     }
 
+    public function reorder(Request $request){
+        foreach ($request->order as $index => $item) {
+            Module::where('id', $item['id'])->update(['order' => $index + 1]);
+        }
+        return response()->json(['ok' => true]);
+    }
+
     /** Delete module by ID
      * @method DELETE
      * @param request - ID of module need to delete

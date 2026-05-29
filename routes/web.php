@@ -100,6 +100,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/modules', 'App\Http\Controllers\ModuleController@create');
     Route::put('/modules', 'App\Http\Controllers\ModuleController@update');
     Route::delete('/modules', 'App\Http\Controllers\ModuleController@delete');
+    Route::post('/modules/reorder', 'App\Http\Controllers\ModuleController@reorder');
+    Route::post('/materials/reorder', 'App\Http\Controllers\MaterialController@reorder');
 
 
 

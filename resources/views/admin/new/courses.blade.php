@@ -9,6 +9,16 @@
 
 @section('head')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.9/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+<style>
+.drag-handle { cursor: grab; color: var(--text-muted); flex-shrink:0; padding: 0 4px; opacity:.5; transition: opacity .15s; }
+.drag-handle:hover { opacity:1; }
+.drag-handle:active { cursor: grabbing; }
+.module-block.sortable-ghost { opacity:.4; background: var(--accent-light); }
+.material-row.sortable-ghost { opacity:.4; background: var(--accent-light); }
+.material-row.sortable-chosen { box-shadow: 0 4px 16px rgba(166,25,46,.25); }
+.module-block.sortable-chosen { box-shadow: 0 4px 20px rgba(166,25,46,.2); }
+</style>
 @endsection
 
 @section('content')
@@ -92,7 +102,7 @@
             </div>
 
             {{-- Modules with materials --}}
-            <div>
+            <div id="modules_list_{{ $course->id }}" data-course="{{ $course->id }}">
                 <div class="modules-section-header">
                     <span class="panel-card-title">Модулі</span>
                     <button class="btn-new btn-primary-new btn-sm-new" onclick="openAddModule({{ $course->id }})">
@@ -102,9 +112,12 @@
                 </div>
 
                 @forelse($course->modules as $module)
-                <div class="module-block" id="module_block_{{ $module->id }}">
+                <div class="module-block" id="module_block_{{ $module->id }}" data-id="{{ $module->id }}">
                     <div class="module-block-header">
                         <div style="display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden">
+                            <span class="drag-handle module-drag-handle" title="Перетягнути модуль">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg>
+                            </span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--accent)"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                             <span style="font-weight:600;color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ $module->title }}</span>
                             <span style="font-size:0.72rem;color:var(--text-muted);flex-shrink:0">{{ count($module->materials) }} матеріалів</span>
@@ -122,9 +135,12 @@
                             </button>
                         </div>
                     </div>
-                    <div class="module-block-materials">
+                    <div class="module-block-materials" id="materials_list_{{ $module->id }}" data-module="{{ $module->id }}">
                         @forelse($module->materials as $material)
-                        <div class="material-row">
+                        <div class="material-row" data-id="{{ $material->id }}">
+                            <span class="drag-handle material-drag-handle" title="Перетягнути матеріал">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg>
+                            </span>
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;color:var(--text-muted)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                             <span class="material-row-title">{{ $material->title }}</span>
                             <button class="list-action-btn edit" onclick="openEditMaterial({{ $material->id }})" title="Редагувати">
@@ -530,6 +546,7 @@ function selectCourse(id){
 
     _currentCourseId = id;
     localStorage.setItem('selectedCourse', id);
+    initSortable(id);
 }
 
 function filterCourseList(q){
@@ -618,6 +635,71 @@ function deleteModule(id, btn){
     form.method = 'POST'; form.action = '/modules';
     form.innerHTML = '<input name="_token" value="{{ csrf_token() }}" type="hidden"><input name="_method" value="DELETE" type="hidden"><input name="id" value="'+id+'" type="hidden">';
     document.body.appendChild(form); form.submit();
+}
+
+// ===== Drag & Drop (SortableJS) =====
+var _sortableInstances = [];
+
+function initSortable(courseId) {
+    // Destroy previous instances
+    _sortableInstances.forEach(function(s){ s.destroy(); });
+    _sortableInstances = [];
+
+    // --- Module order ---
+    var modulesList = document.getElementById('modules_list_' + courseId);
+    if (modulesList) {
+        _sortableInstances.push(new Sortable(modulesList, {
+            animation: 150,
+            handle: '.module-drag-handle',
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            onEnd: function() { saveModuleOrder(courseId); }
+        }));
+    }
+
+    // --- Material order + cross-module move ---
+    document.querySelectorAll('#course_content_' + courseId + ' .module-block-materials').forEach(function(list) {
+        _sortableInstances.push(new Sortable(list, {
+            group: 'materials_' + courseId,   // same group = cross-module drag allowed
+            animation: 150,
+            handle: '.material-drag-handle',
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            onEnd: function() { saveMaterialOrder(courseId); }
+        }));
+    });
+}
+
+function saveModuleOrder(courseId) {
+    var list = document.getElementById('modules_list_' + courseId);
+    var order = Array.from(list.querySelectorAll(':scope > .module-block')).map(function(el) {
+        return { id: el.getAttribute('data-id') };
+    });
+    $.ajax({
+        url: '/modules/reorder', type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ order: order }),
+        success: function(){ showToast('Порядок модулів збережено'); },
+        error:   function(){ showToast('Помилка збереження', 'error'); }
+    });
+}
+
+function saveMaterialOrder(courseId) {
+    var modules = [];
+    document.querySelectorAll('#course_content_' + courseId + ' .module-block-materials').forEach(function(list) {
+        var moduleId = list.getAttribute('data-module');
+        var materials = Array.from(list.querySelectorAll(':scope > .material-row')).map(function(el) {
+            return { id: el.getAttribute('data-id') };
+        });
+        modules.push({ module_id: moduleId, materials: materials });
+    });
+    $.ajax({
+        url: '/materials/reorder', type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ modules: modules }),
+        success: function(){ showToast('Порядок матеріалів збережено'); },
+        error:   function(){ showToast('Помилка збереження', 'error'); }
+    });
 }
 
 // ===== Material Actions =====

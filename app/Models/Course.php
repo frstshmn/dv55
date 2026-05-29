@@ -11,7 +11,7 @@ class Course extends Model
     use HasFactory;
     public function modules()
     {
-        return $this->hasMany(Module::class);
+        return $this->hasMany(Module::class)->orderBy('order');
     }
 
     public function totalScore($user_id)

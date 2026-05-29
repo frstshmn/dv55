@@ -10,6 +10,19 @@ use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
+    public function reorder(Request $request){
+        // $request->modules = [ { module_id: X, materials: [{id:1},{id:3}] }, ... ]
+        foreach ($request->modules as $moduleData) {
+            foreach ($moduleData['materials'] as $index => $item) {
+                Material::where('id', $item['id'])->update([
+                    'module_id' => $moduleData['module_id'],
+                    'order'     => $index + 1,
+                ]);
+            }
+        }
+        return response()->json(['ok' => true]);
+    }
+
     public function showCreate(Request $request)
     {
         $module = Module::findOrFail($request->module_id);
