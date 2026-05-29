@@ -7,7 +7,7 @@
     <title>DV55 | @yield('title', 'Кабінет')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="{{ URL::asset('css/student_new.css') }}" rel="stylesheet">
+    <link href="{{ '/public/css/student_new.css' }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('head')
 </head>
@@ -16,7 +16,7 @@
 <header class="student-header">
     <div class="student-header-inner">
         <a href="/cabinet" class="student-logo">
-            <img src="/images/logo_small.svg" alt="DV55">
+            <img src="/public/images/logo_small.svg" alt="DV55">
             <span>DV55</span>
         </a>
         <div class="student-header-center">

@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="{{ URL::asset('css/admin_new.css') }}" rel="stylesheet">
+    <link href="{{ '/public/css/admin_new.css' }}" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -21,7 +21,7 @@
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">
-                <img src="/images/logo_small.svg" alt="DV55">
+                <img src="/public/images/logo_small.svg" alt="DV55">
                 <span class="sidebar-logo-text">DV55</span>
                 <span class="sidebar-badge">Адмін</span>
             </div>
