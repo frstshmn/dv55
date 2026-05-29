@@ -8,7 +8,7 @@
     <meta name="description" content="DV55 — certified security guard training courses. Licensed by the Ministry of Education of Ukraine.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="/public/css/landing.css" rel="stylesheet">
+    <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
 <nav class="site-nav" id="siteNav">
     <div class="nav-inner">
         <a href="#hero" class="nav-logo">
-            <img src="/public/images/logo_small.svg" alt="DV55">
+            <img src="{{ asset('images/logo_small.svg') }}" alt="DV55">
             <span class="nav-logo-text">DV55</span>
         </a>
         <div class="nav-links">
@@ -63,10 +63,10 @@
 <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <div class="hero-slides">
-        <div class="hero-slide" style="background-image:url('/public/images/hero_1.png')"></div>
-        <div class="hero-slide" style="background-image:url('/public/images/hero_2.png')"></div>
-        <div class="hero-slide" style="background-image:url('/public/images/hero_3.png')"></div>
-        <div class="hero-slide" style="background-image:url('/public/images/hero_4.png')"></div>
+        <div class="hero-slide" style="background-image:url('{{ asset('images/hero_1.png') }}')"></div>
+        <div class="hero-slide" style="background-image:url('{{ asset('images/hero_2.png') }}')"></div>
+        <div class="hero-slide" style="background-image:url('{{ asset('images/hero_3.png') }}')"></div>
+        <div class="hero-slide" style="background-image:url('{{ asset('images/hero_4.png') }}')"></div>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-grid-lines"></div>
@@ -140,7 +140,7 @@
         <div class="grid-2">
             <div class="about-visual reveal">
                 <div class="about-logo-wrap">
-                    <img src="/public/images/logo_big.svg" alt="DV55 Logo">
+                    <img src="{{ asset('images/logo_big.svg') }}" alt="DV55 Logo">
                 </div>
             </div>
             <div class="reveal" style="transition-delay:.1s">
@@ -235,7 +235,7 @@
             <div class="course-card reveal" style="transition-delay:{{ ($i % 3) * 0.08 }}s">
                 <div class="cc-top">
                     <div class="cc-icon">
-                        <img src="/public/images/logo_big.svg" alt="DV55">
+                        <img src="{{ asset('images/logo_big.svg') }}" alt="DV55">
                     </div>
                     <div class="cc-title">{{ $course->title }}</div>
                 </div>
@@ -344,7 +344,7 @@
         <div class="footer-inner">
             <div>
                 <div class="footer-brand-logo">
-                    <img src="/public/images/logo_small.svg" alt="DV55">
+                    <img src="{{ asset('images/logo_small.svg') }}" alt="DV55">
                     <span>DV55</span>
                 </div>
                 <p class="footer-tagline">Security Training Centre. Licensed by the Ministry of Education and Science of Ukraine.</p>
