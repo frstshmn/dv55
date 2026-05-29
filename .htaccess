@@ -1,13 +1,14 @@
 DirectoryIndex public/index.php
+
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
-
-    <Files .env>
-        Order allow,deny
-        Deny from all
-    </Files>
 
     RewriteEngine On
 
@@ -15,13 +16,8 @@ DirectoryIndex public/index.php
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ public/index.php [L]
+    # Route ALL requests through public/ (static files + Laravel)
+    # Prevents loop for requests already inside /public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
