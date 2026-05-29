@@ -210,9 +210,9 @@
         <div class="mission-inner reveal">
             <div class="eyebrow" style="justify-content:center">Наша місія</div>
             <div class="mission-icons">
-                <div class="mission-icon">🤝</div>
-                <div class="mission-icon">⭐</div>
-                <div class="mission-icon">🎓</div>
+                <div class="mission-icon"><i class="fa-solid fa-handshake"></i></div>
+                <div class="mission-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="mission-icon"><i class="fa-solid fa-graduation-cap"></i></div>
             </div>
             <p class="mission-quote">
                 Впровадження охоронних послуг нового рівня, де превалює <strong>командна робота, професіоналізм та освіченість</strong> персоналу

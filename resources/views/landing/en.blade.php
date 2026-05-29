@@ -209,9 +209,9 @@
         <div class="mission-inner reveal">
             <div class="eyebrow" style="justify-content:center">Our mission</div>
             <div class="mission-icons">
-                <div class="mission-icon">🤝</div>
-                <div class="mission-icon">⭐</div>
-                <div class="mission-icon">🎓</div>
+                <div class="mission-icon"><i class="fa-solid fa-handshake"></i></div>
+                <div class="mission-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="mission-icon"><i class="fa-solid fa-graduation-cap"></i></div>
             </div>
             <p class="mission-quote">
                 Delivering security services of a new standard, where <strong>teamwork, professionalism and knowledge</strong> define every member of staff
