@@ -20,15 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $courses = Course::get();
-    return view('welcome', ['courses' => $courses]);
+    return view('landing.ua', ['courses' => Course::get()]);
 })->name('landing');
 
-Route::get('/new', function () {
-    return view('landing.ua', ['courses' => Course::get()]);
-});
-
-Route::get('/new/en', function () {
+Route::get('/en', function () {
     return view('landing.en', ['courses' => Course::get()]);
 });
 

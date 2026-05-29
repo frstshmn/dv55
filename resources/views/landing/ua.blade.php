@@ -28,8 +28,8 @@
         </div>
         <div class="nav-right">
             <div class="nav-lang">
-                <a href="/new" class="active">UA</a>
-                <a href="/new/en">EN</a>
+                <a href="/" class="active">UA</a>
+                <a href="/en">EN</a>
             </div>
             @auth
                 <a href="{{ url('/cabinet') }}" class="nav-cta">Кабінет →</a>
@@ -49,8 +49,8 @@
     <a href="#courses" onclick="closeMobile()">Курси</a>
     <a href="#contact" onclick="closeMobile()">Контакти</a>
     <div style="display:flex;gap:8px;padding:4px 16px">
-        <a href="/new" style="font-size:.8rem;font-weight:700;color:var(--accent)">UA</a>
-        <a href="/new/en" style="font-size:.8rem;font-weight:700;color:var(--text-muted)">EN</a>
+        <a href="/" style="font-size:.8rem;font-weight:700;color:var(--accent)">UA</a>
+        <a href="/en" style="font-size:.8rem;font-weight:700;color:var(--text-muted)">EN</a>
     </div>
     @auth
         <a href="{{ url('/cabinet') }}" style="color:var(--accent)">→ Кабінет</a>
@@ -369,8 +369,8 @@
         <div class="footer-bottom">
             <span class="footer-copy">© {{ date('Y') }} <span class="footer-accent">DV55</span> Training Center. Всі права захищено.</span>
             <div style="display:flex;gap:10px">
-                <a href="/new" style="font-size:.78rem;font-weight:700;color:var(--accent)">UA</a>
-                <a href="/new/en" style="font-size:.78rem;font-weight:700;color:var(--text-muted)">EN</a>
+                <a href="/" style="font-size:.78rem;font-weight:700;color:var(--accent)">UA</a>
+                <a href="/en" style="font-size:.78rem;font-weight:700;color:var(--text-muted)">EN</a>
             </div>
         </div>
     </div>
