@@ -52,7 +52,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', Rules\Password::defaults()],
+            'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
         if($request->password == $request->password_confirmation){
@@ -121,7 +121,7 @@ class UserController extends Controller
         $content = $request->message;
 
         Mail::send('layouts.feedback', ['name' => $name, 'email' => $email, 'content' => $content], function ($message) {
-            $message->to('theskaters75@gmail.com')->subject('DV55');
+            $message->to('55divizion55@gmail.com')->subject('DV55');
         });
 
         return redirect()->back();

@@ -1,19 +1,27 @@
-<div class="container mt-5">
-    @php echo($material->code) @endphp
+<div class="material-body">
+    {!! $material->code !!}
 </div>
 
-@if ($test != NULL || !empty($next_material))
-    <div class="container p-5 d-flex justify-content-center">
-        @if(!empty($next_material))
-            <button class="button px-5 next-material" data-next="{{$next_material->id}}" data-current="{{$material->id}}" data-module="{{$material->module->id}}" data-user="{{Auth::user()->id}}">Перейти до наступної теми: <em>{{$next_material->title}}</em> <span class="m-0 h4 iconify" data-icon="ic:round-navigate-next" data-inline="false"></span></button>
-        @else
-            <button class="button px-5 next-test" data-next="{{$test->id}}" data-current="{{$material->id}}" data-module="{{$material->module->id}}" data-user="{{Auth::user()->id}}">Перейти до тесту <span class="m-0 h4 iconify" data-icon="ic:round-navigate-next" data-inline="false"></span></button>
-        @endif
-    </div>
+@if($test !== null || !empty($next_material))
+<div class="material-nav">
+    @if(!empty($next_material))
+    <button class="btn-material-next btn-next-material"
+        data-next="{{ $next_material->id }}"
+        data-current="{{ $material->id }}"
+        data-module="{{ $material->module->id }}">
+        {{ $next_material->title }}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </button>
+    @elseif($test !== null)
+    <button class="btn-material-next btn-next-test"
+        data-next="{{ $test->id }}"
+        data-current="{{ $material->id }}"
+        data-module="{{ $material->module->id }}">
+        Перейти до тесту
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </button>
+    @endif
+</div>
 @else
-    <div class="container p-5 d-flex justify-content-center font-italic color-grey">
-        Кінець модулю
-    </div>
+<p class="material-end-note">Кінець модуля</p>
 @endif
-
-

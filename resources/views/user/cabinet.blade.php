@@ -1,41 +1,56 @@
-@extends('layouts.layout')
-
-@section('title', 'Список курсів')
+@extends('layouts.student_new')
+@section('title', 'Мої курси')
 
 @section('content')
-    <nav class="font-primary navbar navbar-expand-lg background-light-grey py-3 px-5">
-        <a class="navbar-brand font-weight-bold text-shadow" href="{{ route('landing') }}"><img src="{{ URL::asset('public/images/logo_small.svg') }}" class="text-center d-flex justify-content-center mx-auto" width="100em"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
+<div class="cabinet-page">
+    <div class="cabinet-heading">
+        <h1>Мої курси</h1>
+        <p>Вітаємо, {{ Auth::user()->name }}! Оберіть курс для навчання.</p>
+    </div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link">Курси</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link color-grey" href="#">Сертифікати</a>
-                </li>
-
-            </ul>
-            <form action="{{route("logout")}}" method="POST">@csrf<button class="background-red py-1 button shadow my-2 my-sm-0" type="submit">Вийти <span class="iconify" data-icon="uil:exit" data-inline="false"></span></button></form>
-        </div>
-    </nav>
-    <div class="background-light-grey">
-        <div class="container">
-            <div class="row w-100">
-                @foreach ($courses as $course)
-                    <div class="col-md-4 col-sm-6 col-xs-12 my-5">
-                        <div class="neuro-card text-center p-5">
-                            <img src="{{ URL::asset('public/images/logo_big.svg') }}" class="w-75 text-center d-flex justify-content-center mx-auto">
-                            <h5 class="card-title font-weight-bold mt-4 mb-2">{{$course->course->title}}</h5>
-                            <h6 class="card-subtitle font-weight-bold my-4 text-muted small">{{ $course->course->totalScore(Auth::user()->id) }}% пройдено</h6>
-                            <a href="/courses/{{$course->course->id}}" class="card-link button py-2 shadow mx-auto text-white">Перейти до курсу</a>
-                        </div>
+    @if($courses->isEmpty())
+    <div class="empty-cabinet">
+        <div class="empty-cabinet-icon">🎓</div>
+        <div>Вас ще не записано на жодний курс. Зверніться до адміністратора.</div>
+    </div>
+    @else
+    <div class="course-grid-student">
+        @foreach($courses as $userCourse)
+        @php $course = $userCourse->course; $score = $course->totalScore(Auth::user()->id); @endphp
+        <div class="course-card-student" onclick="window.location='/courses/{{ $course->id }}'">
+            <div class="ccs-header">
+                <div class="ccs-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                </div>
+                <div class="ccs-title">{{ $course->title }}</div>
+                <div class="ccs-desc">{{ Str::limit($course->description, 80) }}</div>
+            </div>
+            <div class="ccs-body">
+                <div class="ccs-stats">
+                    <div class="ccs-stat">
+                        <div class="ccs-stat-val">{{ count($course->modules) }}</div>
+                        <div class="ccs-stat-lbl">Модулів</div>
                     </div>
-                @endforeach
+                    <div class="ccs-stat">
+                        <div class="ccs-stat-val">{{ $course->modules->sum(fn($m) => count($m->materials)) }}</div>
+                        <div class="ccs-stat-lbl">Матеріалів</div>
+                    </div>
+                </div>
+                <div class="ccs-progress-wrap">
+                    <div class="ccs-progress-bar"><div class="ccs-progress-fill" style="width:{{ $score }}%"></div></div>
+                    <span class="ccs-progress-label">{{ $score }}%</span>
+                </div>
+            </div>
+            <div class="ccs-footer">
+                <span style="font-size:0.78rem;color:var(--text-muted)">{{ $score >= 100 ? 'Завершено ✓' : ($score > 0 ? 'Продовжити' : 'Почати') }}</span>
+                <button class="ccs-enter-btn">
+                    Перейти
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </button>
             </div>
         </div>
+        @endforeach
     </div>
+    @endif
+</div>
 @endsection

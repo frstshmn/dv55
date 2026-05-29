@@ -21,10 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $courses = Course::get();
-    return view('welcome',[
-        'courses' => $courses,
-    ]);
+    return view('welcome', ['courses' => $courses]);
 })->name('landing');
+
+Route::get('/new', function () {
+    return view('landing.ua', ['courses' => Course::get()]);
+});
+
+Route::get('/new/en', function () {
+    return view('landing.en', ['courses' => Course::get()]);
+});
 
 Route::post('/sendmail', 'App\Http\Controllers\UserController@sendMail');
 
@@ -53,7 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin', function () {
         $users = User::get();
         $courses = Course::get();
-        return view('admin.adminpanel',[
+        return view('admin.new.courses', [
             'users' => $users,
             'courses' => $courses,
         ]);
@@ -63,7 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
         $users = User::get();
         $courses = Course::get();
         $tests = Test::get();
-        return view('admin.testpanel',[
+        return view('admin.new.tests', [
             'users' => $users,
             'courses' => $courses,
             'tests' => $tests,
@@ -73,7 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users', function () {
         $users = User::get();
         $courses = Course::get();
-        return view('admin.userpanel',[
+        return view('admin.new.users', [
             'users' => $users,
             'courses' => $courses,
         ]);
@@ -102,6 +108,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
+    Route::get('/materials/create', 'App\Http\Controllers\MaterialController@showCreate');
+    Route::get('/materials/{id}/edit', 'App\Http\Controllers\MaterialController@showEdit');
     Route::get('/materials/{id}', 'App\Http\Controllers\MaterialController@show');
     //Admin
     Route::get('/materials/json/{id}', 'App\Http\Controllers\MaterialController@getJSON');
@@ -143,4 +151,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/answers', 'App\Http\Controllers\AnswerController@create');
     Route::get('/results', 'App\Http\Controllers\AnswerController@showResults')->name('results');
+
+    Route::post('/upload/image', 'App\Http\Controllers\ImageController@upload');
+    Route::post('/upload/video', 'App\Http\Controllers\ImageController@uploadVideo');
 });

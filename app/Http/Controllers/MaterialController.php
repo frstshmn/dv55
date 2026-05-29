@@ -3,12 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\Module;
 use App\Models\Test;
 use App\Models\UserComplection;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
+    public function showCreate(Request $request)
+    {
+        $module = Module::findOrFail($request->module_id);
+        $course = $module->course;
+        return view('admin.new.material_form', [
+            'material' => null,
+            'module'   => $module,
+            'course'   => $course,
+        ]);
+    }
+
+    public function showEdit($id)
+    {
+        $material = Material::findOrFail($id);
+        $module   = $material->module;
+        $course   = $module->course;
+        return view('admin.new.material_form', [
+            'material' => $material,
+            'module'   => $module,
+            'course'   => $course,
+        ]);
+    }
+
     /** Get material by ID
      * @method GET
      * @param id - ID of material
@@ -63,7 +87,8 @@ class MaterialController extends Controller
         $material->code = $request->code;
         $material->save();
 
-        return redirect()->back();
+        $courseId = Module::find($request->module_id)?->course?->id;
+        return redirect('/admin?course=' . $courseId)->with('success', 'Матеріал створено');
     }
 
     /** Update existing material
@@ -78,7 +103,8 @@ class MaterialController extends Controller
         $material->code = $request->code;
         $material->save();
 
-        return redirect()->back();
+        $courseId = $material->module?->course?->id;
+        return redirect('/admin?course=' . $courseId)->with('success', 'Матеріал збережено');
     }
 
     /** Delete material by ID
@@ -93,10 +119,10 @@ class MaterialController extends Controller
         ]);
 
         $material = Material::where('id', $request->id)->first();
-            $usercomplection = UserComplection::where('material_id', $material->id);
-            $usercomplection->delete();
+        $courseId = $material->module?->course?->id;
+        UserComplection::where('material_id', $material->id)->delete();
         $material->delete();
 
-        return redirect()->back();
+        return redirect('/admin?course=' . $courseId)->with('success', 'Матеріал видалено');
     }
 }

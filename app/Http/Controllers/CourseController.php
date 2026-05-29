@@ -64,10 +64,10 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->save();
 
-        $usercomplection = new UserComplection();
-        $usercomplection->user_id = Auth::user()->id;
-        $usercomplection->course_id = $course->id;
-        $usercomplection->save();
+        $userCourse = new UserCourses();
+        $userCourse->user_id = Auth::user()->id;
+        $userCourse->course_id = $course->id;
+        $userCourse->save();
 
         return redirect()->back();
     }

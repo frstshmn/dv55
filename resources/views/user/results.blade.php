@@ -1,49 +1,50 @@
-@extends('layouts.layout')
+@extends('layouts.student_new')
+@section('title', 'Результати тесту')
 
-@section('title', 'Результати')
+@section('header-center')
+<a href="/courses/{{ $test->module->course->id }}">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    {{ $test->module->course->title }}
+</a>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+<span>Результати тесту</span>
+@endsection
 
 @section('content')
-    <div class="vh-100 d-flex flex-row justify-content-center align-items-center">
-        <div class="row"></div>
-        <div class="row ">
-            <div class="neuro-card p-5 color-navy text-center align-self-center">
-                @if ($result < 70)
-                    <div class="font-weight-bold display-2 text-danger">{{$result}}%</div>
-                    <p class="font-weight-bold">На жаль, ви не склали екзамен</p>
-                    <p class="mb-5">Радимо повторити матеріал лекцій та звернутись до інструктора за повторним тестом</p>
-                @else
-                    <div class="font-weight-bold display-2 text-success">{{$result}}%</div>
-                    <p class="font-weight-bold">Вітаємо, ви успішно склали екзамен</p>
-                    <p class="mb-5">Тепер можете переходити до наступної теми</p>
-                @endif
-
-                <a href="/courses/{{$test->module->course->id}}" class="shadow button background-red font-weight-bold">Повернутись до курсу</a>
-            </div>
-        </div>
-        <div class="row"></div>
-    </div>
-    <div class="container pb-5 mb-5">
-        <div class="row">
-            <div class="col-12">
-                <table class="mx-auto">
-                    <tr>
-                        <th class="py-md-3 px-md-5 p-3 text-center">Запитання</th>
-                        <th class="py-md-3 px-md-5 p-3 text-center">Відповідь користувача</th>
-                        <th class="py-md-3 px-md-5 p-3 text-center">Правильна відповідь</th>
-                    </tr>
-                        @foreach ($test->questions as $question)
-                        <tr @if ($question->userAnswer($user->id) == $question->correctAnswer())
-                            class="bg-success text-white"
-                            @else
-                            class="bg-danger text-white"
-                        @endif>
-                            <td class="py-md-3 px-md-5 p-3 text-center">{{$question->question}}</td>
-                            <td class="py-md-3 px-md-5 p-3 text-center">{{$question->userAnswer($user->id)}}</td>
-                            <td class="py-md-3 px-md-5 p-3 text-center">{{$question->correctAnswer()}}</td>
-                        </tr>
-                        @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="results-hero">
+    @if($result < 70)
+    <div class="results-score fail">{{ $result }}%</div>
+    <p class="results-msg">На жаль, ви не склали тест</p>
+    <p class="results-sub">Рекомендуємо повторити матеріали та звернутись до інструктора для повторного тестування</p>
+    @else
+    <div class="results-score pass">{{ $result }}%</div>
+    <p class="results-msg">Вітаємо! Тест успішно складено</p>
+    <p class="results-sub">Можете переходити до наступного модуля</p>
+    @endif
+    <a href="/courses/{{ $test->module->course->id }}" class="btn-back-course">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Повернутись до курсу
+    </a>
+</div>
+<div class="results-detail">
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Запитання</th>
+                <th>Ваша відповідь</th>
+                <th>Правильна відповідь</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($test->questions as $question)
+            @php $correct = ($question->userAnswer($user->id) == $question->correctAnswer()); @endphp
+            <tr class="{{ $correct ? 'row-pass' : 'row-fail' }}">
+                <td>{{ $question->question }}</td>
+                <td class="{{ $correct ? 'result-correct' : 'result-wrong' }}">{{ $question->userAnswer($user->id) }}</td>
+                <td class="result-correct">{{ $question->correctAnswer() }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @endsection
